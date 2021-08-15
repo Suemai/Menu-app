@@ -9,7 +9,7 @@ public class dish {
     private double small_price;     //price of the small portion
     private int dish_counter;       //number of times the dish has been ordered
 
-    public dish(String name, String cn_name, String staff_name, String id, double large_price, double small_price, int dish_counter){
+    public dish(String name, String cn_name, String staff_name, String id, double small_price, double large_price, int dish_counter){
         this.name = name;
         this.cn_name = cn_name;
         this.staff_name = staff_name;

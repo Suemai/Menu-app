@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.txtDishes.setText(dishes.get(position).getName());
+        holder.txt_cn_name.setText(dishes.get(position).getCn_name());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,12 +57,14 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtDishes;
-        private RelativeLayout parent;
+        private TextView txtDishes, txt_cn_name, doublePrice;
+        private CardView parent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtDishes = itemView.findViewById(R.id.txtDishes);
+            txt_cn_name = itemView.findViewById(R.id.txt_cn_name);
+            doublePrice = itemView.findViewById(R.id.doublePrice);
             parent = itemView.findViewById(R.id.parent);
         }
     }

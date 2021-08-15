@@ -1,6 +1,7 @@
 package com.example.menu_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
         dishes.add(new dish("Chicken Wings with Chilli & Salt", "椒盐鸡翅", "盐鸡羽", "8", 0.00, 6.50, 0));
         dishes.add(new dish("Crab Claws (4)", "蟹爪", "蟹爪", "21", 3.60, 0.00, 0));
         dishes.add(new dish("Crispy Aromatic Duck", "香鸭", "香甲", "28", 8.80, 16.30, 0));
+        dishes.add(new dish("King Prawns with Green Peppers & Black Bean Sauce", "豉椒大虾", "士大下", "59", 6.50, 0.00, 0));
+        dishes.add(new dish("Sweet and Sour King Prawns Balls (Cantonese Style)", "中式咕咾大虾", "中古大下", "162", 7.00, 0.00, 0));
 
         dishesRecViewAdapter adapter = new dishesRecViewAdapter(this);
         adapter.setDishes(dishes);
 
         dishesRecView.setAdapter(adapter);
-        dishesRecView.setLayoutManager(new LinearLayoutManager(this));
+        dishesRecView.setLayoutManager(new GridLayoutManager(this,3));
 
     }
 }

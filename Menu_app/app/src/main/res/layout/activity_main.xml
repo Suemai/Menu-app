@@ -8,12 +8,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dishesRecView"
-        android:layout_width="727dp"
-        android:layout_height="549dp"
+        android:layout_width="714dp"
+        android:layout_height="568dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.471" />
 
     <RelativeLayout
         android:layout_width="487dp"
@@ -40,8 +42,9 @@
         android:ems="10"
         android:hint="Search"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/dishesRecView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
@@ -51,5 +54,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="54dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="162dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

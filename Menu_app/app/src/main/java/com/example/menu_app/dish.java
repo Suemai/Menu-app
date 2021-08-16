@@ -5,17 +5,15 @@ public class dish {
     private String cn_name;         //chinese name of the dish
     private String staff_name;      //staff name of the dish
     private String id;              //the id of the dish (some dishes won't have any)
-    private double large_price;     //price of the large/regular portion
-    private double small_price;     //price of the small portion
+    private int price;           //price of the dish
     private int dish_counter;       //number of times the dish has been ordered
 
-    public dish(String name, String cn_name, String staff_name, String id, double small_price, double large_price, int dish_counter){
+    public dish(String name, String cn_name, String staff_name, String id, int price, int dish_counter){
         this.name = name;
         this.cn_name = cn_name;
         this.staff_name = staff_name;
         this.id = id;
-        this.large_price = large_price;
-        this.small_price = small_price;
+        this.price = price;
         this.dish_counter = dish_counter;
     }
     public String getName() {
@@ -50,20 +48,12 @@ public class dish {
         this.id = id;
     }
 
-    public double getLarge_price() {
-        return large_price;
+    public double getPrice() {
+        return price/100;
     }
 
-    public void setLarge_price(float large_price) {
-        this.large_price = large_price;
-    }
-
-    public double getSmall_price() {
-        return small_price;
-    }
-
-    public void setSmall_price(float small_price) {
-        this.small_price = small_price;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getDish_counter() {

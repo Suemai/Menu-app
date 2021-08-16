@@ -4,10 +4,10 @@
     android:id="@+id/parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:padding="25dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
-    android:layout_margin="10dp">
+    app:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="225dp"
@@ -32,17 +32,15 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/doublePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtDishes"
-            android:layout_marginEnd="20dp"
             android:layout_alignParentRight="true"
-            android:text="Price"
-            android:textStyle="bold"
-            android:id="@+id/doublePrice"
             android:layout_marginStart="10dp"
-            />
-            <!--android:layout_toRightOf="@id/txt_cn_name"-->
+            android:layout_marginEnd="20dp"
+            android:text="Price"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

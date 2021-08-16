@@ -1,11 +1,9 @@
 package com.example.menu_app;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +32,16 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.txtDishes.setText(dishes.get(position).getName());
         holder.txt_cn_name.setText(dishes.get(position).getCn_name());
+        holder.doublePrice.setText(Double.toString(dishes.get(position).getPrice())+"0");   //added the 0 for the 10s in the price
+
+
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, dishes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+
             }
         });
 

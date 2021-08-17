@@ -32,7 +32,7 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {  //asking to include SurpressLint but it runs fine without it
         holder.txtDishes.setText(dishes.get(position).getName());
         holder.txt_cn_name.setText(dishes.get(position).getCn_name());
         holder.doublePrice.setText(Double.toString(dishes.get(position).getPrice())+"0");   //added the 0 for the 10s in the price
@@ -41,7 +41,7 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(context, dishes.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
             }
         });
 

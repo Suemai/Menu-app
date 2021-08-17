@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txtDishes"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
             android:text="Price"
             android:textStyle="bold" />

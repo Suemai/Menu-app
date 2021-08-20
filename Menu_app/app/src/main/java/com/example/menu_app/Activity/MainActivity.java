@@ -1,17 +1,21 @@
-package com.example.menu_app;
+package com.example.menu_app.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.example.menu_app.Adapter.dishesRecViewAdapter;
+import com.example.menu_app.R;
+import com.example.menu_app.Class.dish;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView dishesRecView;
+    private ArrayList<dish> dishes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         dishesRecView = findViewById(R.id.dishesRecView);
 
-        ArrayList<dish> dishes = new ArrayList<>();
         dishes.add(new dish("Barbecued Spare Ribs with BBQ Sauce", "骨", "骨", "1", 650, 0));
         dishes.add(new dish("Spare Ribs with Chilli and Salt", "椒盐骨", "盐骨", "2",650, 0));
         dishes.add(new dish("Barbecued Spare Ribs with Honey Sauce", "蜜骨", "蜜骨", "3", 650, 0));
@@ -31,11 +34,15 @@ public class MainActivity extends AppCompatActivity {
         dishes.add(new dish("King Prawns with Green Peppers & Black Bean Sauce", "豉椒大虾", "士大下", "59", 650, 0));
         dishes.add(new dish("Sweet and Sour King Prawns Balls (Cantonese Style)", "中式咕咾大虾", "中古大下", "162", 700, 0));
 
+        dishesRecyclerView();
+
+    }
+
+    private void dishesRecyclerView(){
         dishesRecViewAdapter adapter = new dishesRecViewAdapter(this);
         adapter.setDishes(dishes);
 
         dishesRecView.setAdapter(adapter);
         dishesRecView.setLayoutManager(new GridLayoutManager(this,3));
-
     }
 }

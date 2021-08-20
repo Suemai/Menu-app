@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Menu_app</string>
+    <string name="dish_name">Dish Name</string>
+    <string name="cn_name">cn Name</string>
+    <string name="price">Price</string>
+    <string name="print">Print</string>
+    <string name="customer_print">Customer Print</string>
+    <string name="total">Total</string>
+    <string name="total_price">Total Price</string>
+    <string name="search">Search</string>
+    <string name="popular_dishes">Popular Dishes</string>
+    <string name="dishes">Dishes</string>
+    <string name="shopping_cart">Shopping cart</string>
 </resources>

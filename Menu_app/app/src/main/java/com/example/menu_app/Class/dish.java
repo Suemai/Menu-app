@@ -1,4 +1,4 @@
-package com.example.menu_app;
+package com.example.menu_app.Class;
 
 public class dish {
     private String name;            //name of the dish
@@ -14,7 +14,7 @@ public class dish {
         this.staff_name = staff_name;
         this.id = id;
         this.price = price;
-        this.dish_counter = dish_counter;
+        this.dish_counter = 0;
     }
     public String getName() {
         return name;

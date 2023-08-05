@@ -1,3 +1,5 @@
 # Menu-app
 
-It is what is it, a menu app that can print receipts.
+It is what it is, a menu app that can print receipts.
+A personal project that is catered initially towards traditional family-owned takeaways.
+Basically a very small-scale PoS system.

@@ -11,4 +11,6 @@
     <string name="popular_dishes">Popular Dishes</string>
     <string name="dishes">Dishes</string>
     <string name="shopping_cart">Shopping cart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

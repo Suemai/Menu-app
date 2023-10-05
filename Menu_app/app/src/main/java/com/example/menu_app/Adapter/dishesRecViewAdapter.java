@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdapter.ViewHolder>{
 
     private ArrayList<dish> dishes = new ArrayList<dish>();
-    private Context context;
+    private final Context context;
 
     //constructor
     public dishesRecViewAdapter(Context context){
@@ -37,7 +37,7 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.txtDishes.setText(dishes.get(position).getName());
-        holder.doublePrice.setText("£"+Double.toString(dishes.get(position).getPrice())+"0");   //added the 0 for the 10s in the price
+        holder.doublePrice.setText("£"+ dishes.get(position).getPrice() +"0");   //added the 0 for the 10s in the price
 
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +61,9 @@ public class dishesRecViewAdapter extends RecyclerView.Adapter<dishesRecViewAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtDishes, doublePrice;
-        private CardView parent;
+        private final TextView txtDishes;
+        private final TextView doublePrice;
+        private final CardView parent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

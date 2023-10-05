@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class cartRecViewAdapter extends RecyclerView.Adapter<cartRecViewAdapter.ViewHolder>{
 
-    private ArrayList<dish> cart = new ArrayList<dish>();
+    private final ArrayList<dish> cart = new ArrayList<dish>();
 
     @NonNull
     @Override
@@ -38,8 +38,10 @@ public class cartRecViewAdapter extends RecyclerView.Adapter<cartRecViewAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView cart_dishes, dish_price_cart, totalPrice;
-        private RelativeLayout cart_parent;
+        private final TextView cart_dishes;
+        private final TextView dish_price_cart;
+        private final TextView totalPrice;
+        private final RelativeLayout cart_parent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

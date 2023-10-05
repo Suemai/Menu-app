@@ -40,7 +40,7 @@ public class cartRecViewAdapter extends RecyclerView.Adapter<cartRecViewAdapter.
 
         private final TextView cart_dishes;
         private final TextView dish_price_cart;
-        private final TextView totalPrice;
+        //private final TextView totalPrice;
         private final RelativeLayout cart_parent;
 
         public ViewHolder(@NonNull View itemView) {
@@ -49,7 +49,7 @@ public class cartRecViewAdapter extends RecyclerView.Adapter<cartRecViewAdapter.
             cart_dishes = itemView.findViewById(R.id.cart_dishes);
             dish_price_cart = itemView.findViewById(R.id.dish_price_cart);
             cart_parent = itemView.findViewById(R.id.cart_parent);
-            totalPrice = itemView.findViewById(R.id.totalPrice);
+            //totalPrice = itemView.findViewById(R.id.totalPrice);
 
         }
     }

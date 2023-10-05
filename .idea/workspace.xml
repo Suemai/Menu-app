@@ -38,6 +38,7 @@
       <list>
         <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -139,7 +140,7 @@
       <workItem from="1693420168562" duration="852000" />
       <workItem from="1696120562960" duration="1481000" />
       <workItem from="1696165262273" duration="4842000" />
-      <workItem from="1696513551942" duration="66000" />
+      <workItem from="1696513551942" duration="4441000" />
     </task>
     <servers />
   </component>

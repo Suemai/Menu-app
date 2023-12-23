@@ -1,11 +1,11 @@
-package com.example.menu_app.Fragments
+package com.example.menu_app.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.menu_app.R
+import com.example.menu.R
 
 /*
 Objective for this fragment:
@@ -14,13 +14,11 @@ Objective for this fragment:
     - pressing the object will open food page
 */
 
-class DatabaseFragment: Fragment() {
+class databaseFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_search, container, false)
+        return inflater.inflate(R.layout.fragment_database, container, false)
     }
 }

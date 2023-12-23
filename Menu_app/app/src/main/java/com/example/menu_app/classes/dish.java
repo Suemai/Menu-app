@@ -1,4 +1,4 @@
-package com.example.menu_app.Class;
+package com.example.menu_app.classes;
 
 public class dish {
     private String name;            //name of the dish

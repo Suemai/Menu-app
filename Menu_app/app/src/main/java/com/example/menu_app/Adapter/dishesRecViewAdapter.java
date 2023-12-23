@@ -1,4 +1,4 @@
-package com.example.menu_app.Adapter;
+package com.example.menu_app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menu_app.R;
-import com.example.menu_app.Class.dish;
+import com.example.menu_app.classes.dish;
 
 import java.util.ArrayList;
 

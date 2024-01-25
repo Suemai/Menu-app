@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav"
             app:startDestination="@id/mainFragment">
 
     <fragment
             android:id="@+id/mainFragment"
             android:name="com.example.menu_app.fragment.mainFragment"
-            android:label="mainFragment"/>
+            android:label="mainFragment"
+            tools:layout="@layout/fragment_main"/>
     <fragment
             android:id="@+id/databaseFragment"
-            android:name="com.example.menu_app.fragment.databaseFragment"
-            android:label="databaseFragment"/>
+            android:name="com.example.menu_app.fragment.DatabaseFragment"
+            android:label="databaseFragment"
+            tools:layout="@layout/fragment_database">
+        <action
+                android:id="@+id/action_databaseFragment_to_dishPageFragment"
+                app:destination="@id/dishPageFragment"/>
+
+    </fragment>
+    <fragment
+            android:id="@+id/dishPageFragment"
+            android:name="com.example.menu_app.fragment.dishPageFragment"
+            android:label="dishPageFragment"
+            tools:layout="@layout/fragment_dish_page">
+
+        <!-- All the arguments!!!  -->
+        <argument
+                android:name="dishNumber"
+                app:argType="string"/>
+
+        <argument
+                android:name="dishName"
+                app:argType="string"/>
+
+        <argument
+                android:name="dishCnName"
+                app:argType="string"/>
+
+        <argument
+                android:name="dishStaffName"
+                app:argType="string"/>
+
+        <argument
+                android:name="dishPrice"
+                app:argType="float"/>
+    </fragment>
 </navigation>

@@ -13,4 +13,9 @@
     <string name="shopping_cart">Shopping cart</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dish_page_dish_id">Dish number: %1$s</string>
+    <string name="dish_page_dish_name">Dish Name: %1$s</string>
+    <string name="dish_page_chinese_name">Chinese Name: %1$s</string>
+    <string name="dish_page_staff_chinese_name">Staff Chinese Name: %1$s</string>
+    <string name="dish_page_price">Price: £%.2f</string>
 </resources>

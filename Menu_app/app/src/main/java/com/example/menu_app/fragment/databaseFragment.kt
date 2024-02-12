@@ -12,6 +12,7 @@ import com.example.menu.R
 import com.example.menu_app.adapter.searchMainAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.dishes.dishRepository
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
 /*
@@ -25,6 +26,8 @@ class DatabaseFragment : Fragment() {
 
     private lateinit var dishAdapter: searchMainAdapter
     private lateinit var dishRepository: dishRepository
+    private lateinit var dishesRecyclerView: RecyclerView
+    private lateinit var addDishButton: FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,7 +49,7 @@ class DatabaseFragment : Fragment() {
         }
 
         //initialize and set up the RecyclerView and Adapter
-        val dishesRecyclerView : RecyclerView = view.findViewById(R.id.search_results)
+        dishesRecyclerView = view.findViewById(R.id.search_results)
         dishAdapter = searchMainAdapter(listOfDishes)
 
         //set the layout manager and adapter
@@ -67,6 +70,15 @@ class DatabaseFragment : Fragment() {
 
             // Testing
             //Toast.makeText(requireContext(), "Item clicked at position $position", Toast.LENGTH_SHORT).show()
+        }
+
+        // Add dishes button
+        addDishButton = view.findViewById(R.id.add_new_dish_button)
+        addDishButton.setOnClickListener {
+
+            // navigate to add dish fragment
+            val action = DatabaseFragmentDirections.actionDatabaseFragmentToAddDishFragment()
+            findNavController().navigate(action)
         }
     }
 }

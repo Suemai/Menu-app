@@ -13,9 +13,18 @@
     <string name="shopping_cart">Shopping cart</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dish_page_dish_id">Dish number: %1$s</string>
-    <string name="dish_page_dish_name">Dish Name: %1$s</string>
-    <string name="dish_page_chinese_name">Chinese Name: %1$s</string>
-    <string name="dish_page_staff_chinese_name">Staff Chinese Name: %1$s</string>
-    <string name="dish_page_price">Price: £%.2f</string>
+    <string name="dish_page_dish_id">%1$s</string>
+    <string name="dish_page_dish_name">%1$s</string>
+    <string name="dish_page_chinese_name">%1$s</string>
+    <string name="dish_page_staff_chinese_name">%1$s</string>
+    <string name="dish_page_price">%.2f</string>
+    <string name="dish_number_title">Dish number: &#160;</string>
+    <string name="dish_name_title">Dish name: &#160;</string>
+    <string name="dish_chinese_name_title">Chinese name: &#160;</string>
+    <string name="staff_chinese_name_title">Staff Chinese Name: &#160;</string>
+    <string name="dish_page_price_title">Price: £</string>
+    <string name="delete_dish">Delete Dish</string>
+    <string name="edit_dish_btn">Edit</string>
+    <string name="add_new_dish">Add dish</string>
+    <string name="save">Save</string>
 </resources>

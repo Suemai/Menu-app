@@ -4,6 +4,43 @@
     <shared>
       <config />
     </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/cart_dishes_item.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/dishes_list_item.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/fragment_add_dish.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/fragment_database.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/fragment_dish_page.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/layout/fragment_main.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Menu_app/app/src/main/res/navigation/nav.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+    </layouts>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
@@ -15,7 +52,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Menu_app">
       <ProjectState />
@@ -37,10 +74,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Kotlin Class" />
-        <option value="layoutResourceFile" />
         <option value="navigationResourceFile" />
         <option value="resourceFile" />
+        <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -63,26 +100,37 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ResourceManagerPrefKey.ResourceType&quot;: &quot;MENU&quot;,
+    &quot;Android App.Menu.app.executor&quot;: &quot;Run&quot;,
+    &quot;ResourceManagerPrefKey.ResourceType&quot;: &quot;DRAWABLE&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/B-P-b/Documents/Projects/App/Menu-app&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Kotlin-rewrite&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/B-P-b/Documents/Projects/App/Menu-app/Menu_app&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.35100117&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.XML&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\B-P-b\Documents\Projects\App\Menu-app\Menu_app" />
+      <recent name="C:\Users\B-P-b\Documents\Projects\App\Menu-app\Menu_app\gradle" />
+    </key>
     <key name="android.template.1025207470">
       <recent name="com.example.menu_app.Activity" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\B-P-b\Documents\Projects\App\Menu-app\Menu_app\app\src\main\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.Menu.app">
@@ -96,6 +144,7 @@
       <option name="ALL_USERS" value="false" />
       <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -133,6 +182,7 @@
       <option name="ALL_USERS" value="false" />
       <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -193,7 +243,17 @@
       <workItem from="1698715692814" duration="171000" />
       <workItem from="1698715875466" duration="3096000" />
       <workItem from="1700942603052" duration="10155000" />
-      <workItem from="1703366740615" duration="633000" />
+      <workItem from="1703366740615" duration="2395000" />
+      <workItem from="1703442934346" duration="782000" />
+      <workItem from="1703503409498" duration="98000" />
+      <workItem from="1704493141130" duration="92000" />
+      <workItem from="1704493306132" duration="169000" />
+      <workItem from="1704494470330" duration="928000" />
+      <workItem from="1704500822402" duration="187000" />
+      <workItem from="1706189595072" duration="3666000" />
+      <workItem from="1707674250164" duration="15000" />
+      <workItem from="1707674274772" duration="2523000" />
+      <workItem from="1707677266301" duration="10506000" />
     </task>
     <servers />
   </component>

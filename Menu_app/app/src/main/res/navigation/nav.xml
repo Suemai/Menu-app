@@ -18,6 +18,9 @@
         <action
                 android:id="@+id/action_databaseFragment_to_dishPageFragment"
                 app:destination="@id/dishPageFragment"/>
+        <action
+                android:id="@+id/action_databaseFragment_to_addDishFragment"
+                app:destination="@id/addDishFragment"/>
 
     </fragment>
     <fragment
@@ -47,4 +50,9 @@
                 android:name="dishPrice"
                 app:argType="float"/>
     </fragment>
+    <fragment
+            android:id="@+id/addDishFragment"
+            android:name="com.example.menu_app.fragment.AddDishFragment"
+            android:label="AddDishFragment"
+            tools:layout="@layout/fragment_add_dish"/>
 </navigation>

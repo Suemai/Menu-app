@@ -19,7 +19,7 @@
                 android:orientation="horizontal"
                 android:layout_margin="10sp">
 
-            <EditText
+            <androidx.appcompat.widget.SearchView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/search"
@@ -28,10 +28,6 @@
                     android:background="@android:color/transparent"
                     android:layout_weight="1"/>
 
-            <ImageView
-                    android:layout_width="30sp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/clear_img"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

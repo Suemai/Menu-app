@@ -52,7 +52,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Menu_app">
       <ProjectState />
@@ -254,6 +254,8 @@
       <workItem from="1707674250164" duration="15000" />
       <workItem from="1707674274772" duration="2523000" />
       <workItem from="1707677266301" duration="10506000" />
+      <workItem from="1707703555345" duration="209000" />
+      <workItem from="1707862670732" duration="952000" />
     </task>
     <servers />
   </component>

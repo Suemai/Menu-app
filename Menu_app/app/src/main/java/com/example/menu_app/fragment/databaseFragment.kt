@@ -28,6 +28,7 @@ class DatabaseFragment : Fragment() {
     private lateinit var dishRepository: dishRepository
     private lateinit var dishesRecyclerView: RecyclerView
     private lateinit var addDishButton: FloatingActionButton
+    private lateinit var searchView: androidx.appcompat.widget.SearchView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -71,6 +72,26 @@ class DatabaseFragment : Fragment() {
             // Testing
             //Toast.makeText(requireContext(), "Item clicked at position $position", Toast.LENGTH_SHORT).show()
         }
+
+        // Filter dishes from the search function
+        searchView = view.findViewById(R.id.search_text)
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            // When the user submits the search query
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let{
+                    val filteredDishes = listOfDishes.filter { dishes ->
+                        dishes.dishEnglishName.contains(newText, ignoreCase = true) ||
+                                dishes.dishId.toString().contains(newText, ignoreCase = true)
+                    }
+                    dishAdapter.filterList(filteredDishes)
+                }
+                return true
+            }
+        })
 
         // Add dishes button
         addDishButton = view.findViewById(R.id.add_new_dish_button)

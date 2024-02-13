@@ -26,6 +26,8 @@ class mainFragment : Fragment() {
 
     private lateinit var dishAdapter: searchMainAdapter
     private lateinit var dishRepository: dishRepository
+    private lateinit var dishesRecyclerView: RecyclerView
+    private lateinit var searchView: androidx.appcompat.widget.SearchView
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +50,32 @@ class mainFragment : Fragment() {
         }
 
         //initialize and set up the RecyclerView and Adapter
-        val dishesRecyclerView : RecyclerView = view.findViewById(R.id.search_results)
+        dishesRecyclerView = view.findViewById(R.id.search_results)
         dishAdapter = searchMainAdapter(listOfDishes)
 
         //set the layout manager and adapter
         val layoutManager = GridLayoutManager(requireContext(), 3)
         dishesRecyclerView.layoutManager = layoutManager
         dishesRecyclerView.adapter = dishAdapter
+
+        // Filter dishes from the search function
+        searchView = view.findViewById(R.id.search_text)
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            // When the user submits the search query
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            // When the user changes the search query
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    val filteredDishes = listOfDishes.filter { dish ->
+                        dish.dishEnglishName.contains(newText, ignoreCase = true)
+                    }
+                    dishAdapter.filterList(filteredDishes)
+                }
+                return true
+            }
+        })
     }
 }

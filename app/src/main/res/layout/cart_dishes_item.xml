@@ -1,34 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cart_parent">
+        android:id="@+id/basket_dish">
 
-
-        <TextView
-            android:id="@+id/cart_dishes"
+    <!-- Number of a singular dish -->
+    <TextView
+            android:id="@+id/basket_dish_number_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Dish"
-            android:textStyle="bold">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/basket_dish_counter"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
 
-        </TextView>
-
-        <TextView
-            android:id="@+id/dish_price_cart"
+    <TextView
+            android:id="@+id/basket_dish_number_counter_x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:text="@string/basket_dish_counter_x"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/basket_dish_number_counter"/>
+
+    <!-- Dish name -->
+    <TextView
+            android:id="@+id/basket_dish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:text="@string/dish_name"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/basket_dish_number_counter_x"
+            android:layout_toStartOf="@+id/basket_dish_price"
+            android:layout_centerVertical="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/basket_dish_note"
+            android:text="@string/basket_notes"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/basket_dish_number_counter_x"
+            android:layout_toStartOf="@+id/basket_dish_price"
+            android:layout_below="@+id/basket_dish_name"
+            android:visibility="gone"/>
+
+    <!-- Price -->
+    <TextView
+            android:id="@+id/basket_dish_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:padding="10dp"
-            android:text="Price"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:text="@string/basket_dish_price"
+            android:layout_centerVertical="true"/>
 
-        </TextView>
+    <!-- Edit basket version -->
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/add_reduce_dish"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:layout_alignTop="@id/basket_dish_number_counter"
+            android:layout_alignBottom="@id/basket_dish_number_counter"
+            android:visibility="gone">
 
-    </RelativeLayout>
+        <ImageView
+                android:id="@+id/add_dish_button"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/add"/>
 
-</androidx.cardview.widget.CardView>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/basket_dish_counter"
+                android:text="@string/basket_dish_counter"
+                android:padding="2dp"
+                android:textStyle="bold"/>
+
+        <ImageView
+                android:id="@+id/reduce_dish_button"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/reduce"/>
+
+
+    </LinearLayout>
+</RelativeLayout>

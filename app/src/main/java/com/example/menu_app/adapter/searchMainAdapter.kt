@@ -12,6 +12,7 @@ import com.example.menu_app.database.dishes.dishesEntity
 class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Adapter<searchMainAdapter.ViewHolder>() {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
+    private var onItemLongClickListener: ((Int) -> Unit)? = null
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val dishesName: TextView = itemView.findViewById(R.id.txtDishes)
@@ -22,6 +23,13 @@ class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Ad
                 // Test to see if the click listener works
                 Log.d("Adapter", "Item clicked at position $adapterPosition")
                 onItemClickListener?.invoke(adapterPosition)
+            }
+
+            itemView.setOnLongClickListener {
+                // Test to see if the long click listener works
+                Log.d("Adapter", "Item long clicked at position $adapterPosition")
+                onItemLongClickListener?.invoke(adapterPosition)
+                true
             }
         }
     }
@@ -35,7 +43,7 @@ class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Ad
         val dishes = dishes[position]
         //properties of DishesEntity class
         holder.dishesName.text = dishes.dishEnglishName
-        holder.dishesPrice.text = dishes.dishPrice.toString()
+        holder.dishesPrice.text = String.format("%.2f",dishes.dishPrice) //displays this bad boi in 2dp!
     }
 
     override fun getItemCount(): Int {
@@ -49,6 +57,15 @@ class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Ad
     // Function to update dataset and refresh the RecyclerView
     fun filterList(filteredDishes: List<dishesEntity>) {
         dishes = filteredDishes
+        notifyDataSetChanged()
+    }
+
+    fun setOnLongClickListener(listener: (Int) -> Unit) {
+        onItemLongClickListener = listener
+    }
+
+    fun updateList(newDishes: List<dishesEntity>){
+        dishes = newDishes
         notifyDataSetChanged()
     }
 

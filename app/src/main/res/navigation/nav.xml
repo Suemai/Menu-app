@@ -9,7 +9,11 @@
             android:id="@+id/mainFragment"
             android:name="com.example.menu_app.fragment.mainFragment"
             android:label="mainFragment"
-            tools:layout="@layout/fragment_main"/>
+            tools:layout="@layout/fragment_main">
+        <action
+                android:id="@+id/action_mainFragment_to_basketFragment"
+                app:destination="@id/basketFragment"/>
+    </fragment>
     <fragment
             android:id="@+id/databaseFragment"
             android:name="com.example.menu_app.fragment.DatabaseFragment"
@@ -55,4 +59,9 @@
             android:name="com.example.menu_app.fragment.AddDishFragment"
             android:label="AddDishFragment"
             tools:layout="@layout/fragment_add_dish"/>
+    <fragment
+            android:id="@+id/basketFragment"
+            android:name="com.example.menu_app.fragment.BasketFragment"
+            android:label="BasketFragment"
+            tools:layout="@layout/fragment_basket"/>
 </navigation>

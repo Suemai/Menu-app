@@ -15,4 +15,9 @@ class startup : Application(){
             .createFromAsset("dishes.db")
             .build()
     }
+
+    val cartDatabase by lazy {
+        Room.databaseBuilder(this, com.example.menu_app.database.basket.CartDatabase::class.java, "cart.db")
+            .build()
+    }
 }

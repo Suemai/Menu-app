@@ -9,9 +9,6 @@ class vmFactory (private val cartDAO: CartDAO): ViewModelProvider.Factory{
         if (modelClass.isAssignableFrom(mainViewModel::class.java)){
             return mainViewModel(cartDAO) as T
         }
-        if (modelClass.isAssignableFrom(BasketViewModel::class.java)){
-            return BasketViewModel(cartDAO) as T
-        }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

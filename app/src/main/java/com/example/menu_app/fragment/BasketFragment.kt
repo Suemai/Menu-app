@@ -7,7 +7,6 @@ import android.os.Looper
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,6 +14,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,8 +22,7 @@ import com.example.menu.R
 import com.example.menu_app.adapter.BasketAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.basket.CartDAO
-import com.example.menu_app.viewModel.BasketViewModel
-import com.example.menu_app.viewModel.vmFactory
+import com.example.menu_app.viewModel.mainViewModel
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +36,7 @@ class BasketFragment : Fragment() {
     private lateinit var cartDao: CartDAO
     private lateinit var basketRecyclerView: RecyclerView
     private lateinit var basketAdapter: BasketAdapter
-    private lateinit var basketViewModel: BasketViewModel
+    private lateinit var mainVM: mainViewModel
     private lateinit var timeReady: TextView
     private lateinit var estimatedTime: TextView
     private lateinit var addTime: Button
@@ -59,8 +58,7 @@ class BasketFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // View model
-        val vmFactory = vmFactory(cartDao)
-        basketViewModel = vmFactory.create(BasketViewModel::class.java)
+        mainVM = ViewModelProvider(requireActivity())[mainViewModel::class.java]
 
         // Set up the default toolbar
         val menuHost: MenuHost = requireActivity()
@@ -72,7 +70,7 @@ class BasketFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId){
                     R.id.edit_basket -> {
-                        basketViewModel.setEditMode(enabled = true)
+                        mainVM.setEditMode(enabled = true)
                         true
                     }
                     else -> false
@@ -86,7 +84,7 @@ class BasketFragment : Fragment() {
 
         // Initialize and set up the RecyclerView and Adapter
         basketRecyclerView = view.findViewById(R.id.dish_basket_recyclerView)
-        basketAdapter = BasketAdapter(cartDao, basketViewModel, viewLifecycleOwner)
+        basketAdapter = BasketAdapter(cartDao, mainVM, viewLifecycleOwner)
 
         // Set the layout manager and adapter
         val layoutManager = LinearLayoutManager(requireContext())
@@ -95,14 +93,14 @@ class BasketFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val cartItems = cartDao.getAllCartItems()
+                val cartItems = cartDao.getAllCartItems().toMutableList()
                 basketAdapter.setCartItems(cartItems)
             }
         }
 
         // Set up live data
-        basketViewModel.updateTotalPrice()
-        basketViewModel.totalBasketPrice.observe(viewLifecycleOwner) { price ->
+        mainVM.updateIndividualTotalPrice()
+        mainVM.totalBasketPrice.observe(viewLifecycleOwner) { price ->
             view.findViewById<TextView>(R.id.total_basket_price).text = String.format("£%.2f", price)
         }
 

@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -46,11 +47,7 @@ class mainFragment : Fragment() {
     private lateinit var viewBasket: RelativeLayout
     private lateinit var viewBasketBtn: Button
     private lateinit var cartDao: CartDAO
-
-    private val viewModel: mainViewModel by viewModels {
-        vmFactory((requireActivity().application as startup).cartDatabase.cartDAO())
-    }
-
+    private lateinit var viewModel: mainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,6 +65,8 @@ class mainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[mainViewModel::class.java]
 
         val listOfDishes = runBlocking {
             dishRepository.getAllDishes()
@@ -152,6 +151,9 @@ class mainFragment : Fragment() {
                 return true
             }
         })
+
+        // Turn edit mode off
+        viewModel.setEditMode(false)
     }
 
     private fun showNoteDialog(dish: dishesEntity){

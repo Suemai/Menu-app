@@ -1,26 +1,26 @@
 package com.example.menu_app.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.basket.CartItem
-import com.example.menu_app.viewModel.BasketViewModel
+import com.example.menu_app.viewModel.mainViewModel
 import kotlinx.coroutines.*
 
-class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: BasketViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
+class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
 
     private var cartItems: List<CartItem> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_dishes_item, parent, false)
-        return ViewHolder(view, basketViewModel)
+        return ViewHolder(view, mainVM)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,18 +39,19 @@ class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: B
         notifyItemRemoved(position)
     }
 
-    fun setCartItems(cartItems: List<CartItem>){
+    fun setCartItems(cartItems: MutableList<CartItem>){
         this.cartItems = cartItems
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(view: View, basketVM: BasketViewModel) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View, mainVM: mainViewModel) : RecyclerView.ViewHolder(view) {
 
         private val editQuantity = view.findViewById<View>(R.id.add_reduce_dish)
         private val priceTextView = view.findViewById<TextView>(R.id.basket_dish_price)
+        private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
         init {
-            basketVM.isEditModeEnabled.observe(lifecycleOwner) {
+            mainVM.isEditModeEnabled.observe(lifecycleOwner) {
                 if (it) {
                     editQuantity.visibility = View.VISIBLE
                     priceTextView.visibility = View.GONE
@@ -63,8 +64,9 @@ class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: B
 
         fun bind(cartItem: CartItem){
             itemView.findViewById<TextView>(R.id.basket_dish_name).text = cartItem.name
-            itemView.findViewById<TextView>(R.id.basket_dish_price).text = cartItem.price.toString()
+            itemView.findViewById<TextView>(R.id.basket_dish_price).text = String.format("£%.2f", cartItem.price*cartItem.quantity)
             itemView.findViewById<TextView>(R.id.basket_dish_number_counter).text = cartItem.quantity.toString()
+            itemView.findViewById<TextView>(R.id.basket_dish_counter).text = cartItem.quantity.toString()
 
             val notes = itemView.findViewById<TextView>(R.id.basket_dish_note)
             notes.text = cartItem.notes
@@ -77,9 +79,10 @@ class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: B
 
             // Add onClickListeners for the quantity adjustment buttons
             itemView.findViewById<ImageView>(R.id.add_dish_button).setOnClickListener{
-                CoroutineScope(Dispatchers.IO).launch {
+                coroutineScope.launch {
                     cartItem.quantity++
                     cartDAO.updateCartItem(cartItem)
+                    mainVM.updateCart(cartItem)
                     withContext(Dispatchers.Main){
                         notifyItemChanged(adapterPosition)
                     }
@@ -88,18 +91,21 @@ class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: B
 
             itemView.findViewById<ImageView>(R.id.reduce_dish_button).setOnClickListener{
                 if (cartItem.quantity > 1){
-                    CoroutineScope(Dispatchers.IO).launch {
+                    coroutineScope.launch {
                         cartItem.quantity--
                         cartDAO.updateCartItem(cartItem)
+                        mainVM.updateCart(cartItem)
                         withContext(Dispatchers.Main){
                             notifyItemChanged(adapterPosition)
                         }
                     }
                 } else {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    coroutineScope.launch {
                         cartDAO.deleteCartItem(cartItem)
+                        Log.d("BasketAdapter", "Deleted item: $cartItem")
                         withContext(Dispatchers.Main){
                             notifyItemRemoved(adapterPosition)
+                            Log.d("BasketAdapter", "Item removed from view")
                         }
                     }
                 }

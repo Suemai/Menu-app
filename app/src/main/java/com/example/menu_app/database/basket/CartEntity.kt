@@ -19,5 +19,5 @@ data class CartItem (
     val price: Double,
 
     @ColumnInfo(name = "notes")
-    val notes: String?
+    var notes: String?
 )

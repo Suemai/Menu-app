@@ -14,6 +14,10 @@ class CartRepository (private val cartDAO: CartDAO){
         cartDAO.deleteCartItem(cartItem)
     }
 
+    suspend fun getCartItemByName(name: String): CartItem? {
+        return cartDAO.getCartItemByName(name)
+    }
+
     suspend fun getAllCartItems(): List<CartItem> {
         return cartDAO.getAllCartItems()
     }

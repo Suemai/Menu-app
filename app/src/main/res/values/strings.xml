@@ -29,10 +29,10 @@
     <string name="save">Save</string>
     <string name="basket_dish_price">£0.00</string>
     <string name="basket_dish_counter">1</string>
-    <string name="basket_total_price_title">Total: £</string>
+    <string name="basket_total_price_title">Total: &#160;</string>
     <string name="basket_total_price">0.00</string>
     <string name="estimated_time_title">Estimated Time: &#160;</string>
-    <string name="estimated_time">10</string>
+    <string name="estimated_time">0 &#160;</string>
     <string name="actual_time_title">Actual Time: &#160;</string>
     <string name="actual_time">7:30</string>
     <string name="estimated_time_mins">mins</string>

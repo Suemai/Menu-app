@@ -24,7 +24,7 @@ import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.dishes.dishRepository
 import com.example.menu_app.database.dishes.dishesEntity
 import com.example.menu_app.viewModel.mainViewModel
-import com.example.menu_app.viewModel.mainViewModelFactory
+import com.example.menu_app.viewModel.vmFactory
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -48,7 +48,7 @@ class mainFragment : Fragment() {
     private lateinit var cartDao: CartDAO
 
     private val viewModel: mainViewModel by viewModels {
-        mainViewModelFactory((requireActivity().application as startup).cartDatabase.cartDAO())
+        vmFactory((requireActivity().application as startup).cartDatabase.cartDAO())
     }
 
 

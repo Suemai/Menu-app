@@ -5,19 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.basket.CartItem
+import com.example.menu_app.viewModel.BasketViewModel
 import kotlinx.coroutines.*
 
-class BasketAdapter(private val cartDAO: CartDAO) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
+class BasketAdapter(private val cartDAO: CartDAO, private val basketViewModel: BasketViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
 
     private var cartItems: List<CartItem> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_dishes_item, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, basketViewModel)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,17 +44,35 @@ class BasketAdapter(private val cartDAO: CartDAO) : RecyclerView.Adapter<BasketA
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View, basketVM: BasketViewModel) : RecyclerView.ViewHolder(view) {
+
+        private val editQuantity = view.findViewById<View>(R.id.add_reduce_dish)
+        private val priceTextView = view.findViewById<TextView>(R.id.basket_dish_price)
+
+        init {
+            basketVM.isEditModeEnabled.observe(lifecycleOwner) {
+                if (it) {
+                    editQuantity.visibility = View.VISIBLE
+                    priceTextView.visibility = View.GONE
+                } else {
+                    editQuantity.visibility = View.GONE
+                    priceTextView.visibility = View.VISIBLE
+                }
+            }
+        }
 
         fun bind(cartItem: CartItem){
             itemView.findViewById<TextView>(R.id.basket_dish_name).text = cartItem.name
             itemView.findViewById<TextView>(R.id.basket_dish_price).text = cartItem.price.toString()
             itemView.findViewById<TextView>(R.id.basket_dish_number_counter).text = cartItem.quantity.toString()
 
+            val notes = itemView.findViewById<TextView>(R.id.basket_dish_note)
+            notes.text = cartItem.notes
+
             if(cartItem.notes.isNullOrEmpty()){
-                itemView.findViewById<TextView>(R.id.basket_dish_note).visibility = View.GONE
+                notes.visibility = View.GONE
             } else {
-                itemView.findViewById<TextView>(R.id.basket_dish_note).visibility = View.VISIBLE
+                notes.visibility = View.VISIBLE
             }
 
             // Add onClickListeners for the quantity adjustment buttons

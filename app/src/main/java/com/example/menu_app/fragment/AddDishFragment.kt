@@ -37,7 +37,7 @@ class AddDishFragment : Fragment(){
         newDishPrice = view.findViewById(R.id.new_dish_price)
         addDishButton = view.findViewById(R.id.new_dish_save_button)
 
-        addDishButton.setOnClickListener() {
+        addDishButton.setOnClickListener {
             lifecycleScope.launch {
                 addNewDish()
             }

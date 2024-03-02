@@ -9,6 +9,7 @@
             android:id="@+id/dish_basket_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"/>
 
     <!-- Total price of the basket -->
@@ -23,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/basket_total_price_title"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:layout_toStartOf="@id/total_basket_price"/>
 
         <TextView
@@ -32,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/basket_total_price"
                 android:textStyle="bold"
-                android:layout_marginEnd="10dp"
+                android:textSize="20sp"
+                android:layout_marginEnd="20dp"
                 android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
@@ -100,14 +102,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/actual_time"
-                        android:textStyle="bold|italic"/>
+                        android:textStyle="bold"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/actualTimeAMPM"
-                        android:text="@string/pm"
-                        android:textStyle="bold|italic"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -118,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/increaseTimeButton"
                 android:text="@string/add_5_mins"
+                android:padding="3dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"/>
 
@@ -128,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/set_time"
                 android:layout_margin="5dp"
+                android:padding="2dp"
                 android:layout_gravity="center_vertical"
                 style="@style/ThemeOverlay.Material3.Button.TextButton"/>
 

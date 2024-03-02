@@ -1,11 +1,20 @@
 package com.example.menu_app.fragment
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,20 +22,30 @@ import com.example.menu.R
 import com.example.menu_app.adapter.BasketAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.basket.CartDAO
+import com.example.menu_app.viewModel.BasketViewModel
+import com.example.menu_app.viewModel.vmFactory
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BasketFragment : Fragment() {
 
     private lateinit var cartDao: CartDAO
     private lateinit var basketRecyclerView: RecyclerView
     private lateinit var basketAdapter: BasketAdapter
-    private lateinit var addButton: ImageButton
-    private lateinit var decreaseButton: ImageButton
+    private lateinit var basketViewModel: BasketViewModel
+    private lateinit var timeReady: TextView
+    private lateinit var estimatedTime: TextView
+    private lateinit var addTime: Button
+    private lateinit var setTime: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = "Basket"
         cartDao = (requireActivity().application as startup).cartDatabase.cartDAO()
     }
 
@@ -39,9 +58,35 @@ class BasketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // View model
+        val vmFactory = vmFactory(cartDao)
+        basketViewModel = vmFactory.create(BasketViewModel::class.java)
+
+        // Set up the default toolbar
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.basket_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId){
+                    R.id.edit_basket -> {
+                        basketViewModel.setEditMode(enabled = true)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        // Default edit colour black, so changed to white
+        val edit = ContextCompat.getDrawable(requireContext(), R.drawable.edit)
+        DrawableCompat.setTint(edit!!, Color.WHITE)
+
         // Initialize and set up the RecyclerView and Adapter
         basketRecyclerView = view.findViewById(R.id.dish_basket_recyclerView)
-        basketAdapter = BasketAdapter(cartDao)
+        basketAdapter = BasketAdapter(cartDao, basketViewModel, viewLifecycleOwner)
 
         // Set the layout manager and adapter
         val layoutManager = LinearLayoutManager(requireContext())
@@ -53,6 +98,73 @@ class BasketFragment : Fragment() {
                 val cartItems = cartDao.getAllCartItems()
                 basketAdapter.setCartItems(cartItems)
             }
+        }
+
+        // Set up live data
+        basketViewModel.updateTotalPrice()
+        basketViewModel.totalBasketPrice.observe(viewLifecycleOwner) { price ->
+            view.findViewById<TextView>(R.id.total_basket_price).text = String.format("£%.2f", price)
+        }
+
+        // Set up the time ready
+        var addedTime = 0
+        var isTimeSet = false
+        addTime = view.findViewById(R.id.increaseTimeButton)
+        timeReady = view.findViewById(R.id.actualTimeTextView)
+        estimatedTime = view.findViewById(R.id.estimatedTimeTextView)
+        setTime = view.findViewById(R.id.actualTimeButton)
+
+        val handler = Handler(Looper.getMainLooper())
+
+        // current time updates every 5 seconds
+        val updateCurrentTimeRunnable = object : Runnable {
+            override fun run() {
+                if (!isTimeSet) {
+                    val calendar = Calendar.getInstance()
+                    calendar.add(Calendar.MINUTE, addedTime)
+                    val simpleTime = SimpleDateFormat("HH:mm")
+                    val newTime = simpleTime.format(calendar.time)
+                    timeReady.text = newTime
+                    estimatedTime.text = "$addedTime"
+                    handler.postDelayed(this, 5000)
+                }
+            }
+        }
+        handler.post(updateCurrentTimeRunnable)
+
+        addTime.setOnClickListener {
+            addedTime += 5
+            estimatedTime.text = "$addedTime"
+            updateCurrentTimeRunnable.run()
+        }
+        handler.post(updateCurrentTimeRunnable)
+
+        // Set time picker
+        setTime.setOnClickListener {
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(0)
+                .setMinute(0)
+                .setTitleText("Select Time")
+                .build()
+
+            timePicker.addOnPositiveButtonClickListener {
+                val hour = timePicker.hour
+                val minute = timePicker.minute
+
+                // Update the timeReady text view with the selected time
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                val simpleTime = SimpleDateFormat("HH:mm")
+                val newTime = simpleTime.format(calendar.time)
+                timeReady.text = newTime
+
+                isTimeSet = true
+                updateCurrentTimeRunnable.run()
+                addTime.isEnabled = false
+            }
+            timePicker.show(requireActivity().supportFragmentManager, "timePicker")
         }
     }
 }

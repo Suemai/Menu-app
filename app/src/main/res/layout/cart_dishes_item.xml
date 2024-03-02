@@ -38,7 +38,9 @@
             android:textStyle="bold"
             android:layout_toEndOf="@+id/basket_dish_number_counter_x"
             android:layout_toStartOf="@+id/basket_dish_price"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:ellipsize="none"
+            android:singleLine="false"/>
 
     <TextView
             android:layout_width="wrap_content"

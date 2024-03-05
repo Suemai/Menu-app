@@ -90,6 +90,7 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
         val totalItems = cartDao.getAllCartItems().sumOf { it.quantity }
         Log.d("mainViewModel", "updateItemCount: $totalItems")
         (textItemCount as MutableLiveData).value = totalItems
+        isCartEmpty()
     }
 
     private suspend fun updateTotalBasketPrice() {

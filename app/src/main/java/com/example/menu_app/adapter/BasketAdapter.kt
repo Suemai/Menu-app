@@ -33,10 +33,10 @@ class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewMo
     }
 
     fun deleteItem(position: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             cartDAO.deleteCartItem(cartItems[position])
+            notifyItemRemoved(position)
         }
-        notifyItemRemoved(position)
     }
 
     fun setCartItems(cartItems: MutableList<CartItem>){
@@ -102,6 +102,7 @@ class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewMo
                 } else {
                     coroutineScope.launch {
                         cartDAO.deleteCartItem(cartItem)
+                        mainVM.updateCart(cartItem)
                         Log.d("BasketAdapter", "Deleted item: $cartItem")
                         withContext(Dispatchers.Main){
                             notifyItemRemoved(adapterPosition)

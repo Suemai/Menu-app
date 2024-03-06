@@ -27,6 +27,7 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
         viewModelScope.launch {
             cartDao.clearCart()
             (isCartEmpty as MutableLiveData).value = true
+            (isEditModeEnabled as MutableLiveData).value = false
         }
     }
 
@@ -106,7 +107,7 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
     }
 
     fun setEditMode(enabled: Boolean) {
-        _isEditModeEnabled.value = _isEditModeEnabled.value?.not() ?: false
+        _isEditModeEnabled.value = enabled
     }
 
     fun updateIndividualTotalPrice() {

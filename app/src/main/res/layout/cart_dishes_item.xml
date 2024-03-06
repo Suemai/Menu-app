@@ -29,29 +29,35 @@
             android:layout_toEndOf="@id/basket_dish_number_counter"/>
 
     <!-- Dish name -->
-    <TextView
-            android:id="@+id/basket_dish_name"
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="1dp"
-            android:text="@string/dish_name"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/basket_dish_number_counter_x"
-            android:layout_toStartOf="@+id/basket_dish_price"
-            android:layout_centerVertical="true"
-            android:ellipsize="none"
-            android:singleLine="false"/>
+            android:orientation="vertical"
+            android:id="@+id/basket_dish_container"
+            android:layout_toEndOf="@id/basket_dish_number_counter_x"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@id/basket_dish_price">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/basket_dish_note"
-            android:text="@string/basket_notes"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/basket_dish_number_counter_x"
-            android:layout_toStartOf="@+id/basket_dish_price"
-            android:layout_below="@+id/basket_dish_name"
-            android:visibility="gone"/>
+        <TextView
+                android:id="@+id/basket_dish_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="@string/dish_name"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="none"
+                android:singleLine="false"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/basket_dish_note"
+                android:text="@string/basket_notes"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"/>
+    </LinearLayout>
 
     <!-- Price -->
     <TextView

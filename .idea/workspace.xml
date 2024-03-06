@@ -28,6 +28,11 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/basket_edit_mode.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/basket_menu.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
@@ -50,7 +55,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Y5U0220114000261]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -313,7 +318,8 @@
       <workItem from="1709342765980" duration="2822000" />
       <workItem from="1709348228846" duration="804000" />
       <workItem from="1709379634998" duration="1849000" />
-      <workItem from="1709682003270" duration="185000" />
+      <workItem from="1709682003270" duration="495000" />
+      <workItem from="1709740818483" duration="7017000" />
     </task>
     <servers />
   </component>

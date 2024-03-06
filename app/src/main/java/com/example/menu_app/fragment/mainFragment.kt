@@ -153,7 +153,7 @@ class mainFragment : Fragment() {
         })
 
         // Turn edit mode off
-        viewModel.setEditMode(false)
+        //viewModel.setEditMode(false)
     }
 
     private fun showNoteDialog(dish: dishesEntity){

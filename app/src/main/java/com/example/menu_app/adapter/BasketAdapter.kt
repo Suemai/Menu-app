@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,7 @@ import kotlinx.coroutines.*
 
 class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
 
-    private var cartItems: List<CartItem> = emptyList()
+    private var cartItems: MutableList<CartItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_dishes_item, parent, false)
@@ -34,8 +36,14 @@ class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewMo
 
     fun deleteItem(position: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            cartDAO.deleteCartItem(cartItems[position])
-            notifyItemRemoved(position)
+            if (cartItems.isNotEmpty()){
+                cartDAO.deleteCartItem(cartItems[position])
+                cartItems.removeAt(position)
+                withContext(Dispatchers.Main) {
+                    notifyItemRemoved(position)
+                }
+            }
+            Log.d("BasketAdapter", "cartItem deleted")
         }
     }
 
@@ -48,17 +56,25 @@ class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewMo
 
         private val editQuantity = view.findViewById<View>(R.id.add_reduce_dish)
         private val priceTextView = view.findViewById<TextView>(R.id.basket_dish_price)
+        private val basketDishContainer = view.findViewById<LinearLayout>(R.id.basket_dish_container)
         private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
         init {
+            val params = basketDishContainer.layoutParams as RelativeLayout.LayoutParams
+            params.addRule(RelativeLayout.START_OF, priceTextView.id)
+
             mainVM.isEditModeEnabled.observe(lifecycleOwner) {
                 if (it) {
                     editQuantity.visibility = View.VISIBLE
                     priceTextView.visibility = View.GONE
+                    params.addRule(RelativeLayout.START_OF, editQuantity.id)
+
                 } else {
                     editQuantity.visibility = View.GONE
                     priceTextView.visibility = View.VISIBLE
+                    params.addRule(RelativeLayout.START_OF, priceTextView.id)
                 }
+                basketDishContainer.layoutParams = params
             }
         }
 
@@ -101,13 +117,11 @@ class BasketAdapter(private val cartDAO: CartDAO, private val mainVM: mainViewMo
                     }
                 } else {
                     coroutineScope.launch {
-                        cartDAO.deleteCartItem(cartItem)
+                        //cartDAO.deleteCartItem(cartItem)
+                        deleteItem(adapterPosition)
                         mainVM.updateCart(cartItem)
                         Log.d("BasketAdapter", "Deleted item: $cartItem")
-                        withContext(Dispatchers.Main){
-                            notifyItemRemoved(adapterPosition)
-                            Log.d("BasketAdapter", "Item removed from view")
-                        }
+                        Log.d("BasketAdapter", cartItems.toString())
                     }
                 }
             }

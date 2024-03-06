@@ -60,20 +60,47 @@ class BasketFragment : Fragment() {
         // View model
         mainVM = ViewModelProvider(requireActivity())[mainViewModel::class.java]
 
+        // Edit mode off
+        //mainVM.setEditMode(false)
+
         // Set up the default toolbar
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.basket_menu, menu)
+                updateModeVisibility(menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId){
                     R.id.edit_basket -> {
                         mainVM.setEditMode(enabled = true)
+                        requireActivity().invalidateOptionsMenu()
+                        true
+                    }
+                    R.id.save_basket -> {
+                        mainVM.setEditMode(enabled = false)
+                        requireActivity().invalidateOptionsMenu()
                         true
                     }
                     else -> false
+                }
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                updateModeVisibility(menu)
+            }
+
+            private fun updateModeVisibility(menu: Menu){
+                val editButton = menu.findItem(R.id.edit_basket)
+                val saveButton = menu.findItem(R.id.save_basket)
+
+                if (mainVM.isEditModeEnabled.value == true){
+                    editButton.isVisible = false
+                    saveButton.isVisible = true
+                } else {
+                    editButton.isVisible = true
+                    saveButton.isVisible = false
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -81,6 +108,9 @@ class BasketFragment : Fragment() {
         // Default edit colour black, so changed to white
         val edit = ContextCompat.getDrawable(requireContext(), R.drawable.edit)
         DrawableCompat.setTint(edit!!, Color.WHITE)
+
+        val save = ContextCompat.getDrawable(requireContext(), R.drawable.save_tick)
+        DrawableCompat.setTint(save!!, Color.WHITE)
 
         // Initialize and set up the RecyclerView and Adapter
         basketRecyclerView = view.findViewById(R.id.dish_basket_recyclerView)
@@ -164,5 +194,11 @@ class BasketFragment : Fragment() {
             }
             timePicker.show(requireActivity().supportFragmentManager, "timePicker")
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Reset edit mode to false when fragment is paused
+        mainVM.setEditMode(enabled = false)
     }
 }

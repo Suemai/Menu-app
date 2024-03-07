@@ -72,7 +72,7 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
         updateTotalBasketPrice()
     }
 
-    suspend fun isCartEmpty(){
+    private suspend fun isCartEmpty(){
         viewModelScope.launch {
             (isCartEmpty as MutableLiveData).value = cartDao.getAllCartItems().isEmpty()
         }
@@ -99,7 +99,7 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
         (totalBasketPrice as MutableLiveData).value = totalPrice
     }
 
-    fun updateCart(cartItem: CartItem){
+    fun updateCart(){
         viewModelScope.launch {
             updateItemCount()
             updateTotalBasketPrice()

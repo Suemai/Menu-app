@@ -5,9 +5,11 @@ import androidx.lifecycle.*
 import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.basket.CartItem
 import com.example.menu_app.database.dishes.dishesEntity
+import com.example.menu_app.database.orders.OrdersEntity
+import com.example.menu_app.database.orders.OrdersRepository
 import kotlinx.coroutines.launch
 
-class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
+class mainViewModel (private val cartDao: CartDAO, private val ordersRepo: OrdersRepository) : ViewModel() {
 
     //Define LiveData properties
     val textItemCount: LiveData<Int> = MutableLiveData()
@@ -115,6 +117,12 @@ class mainViewModel (private val cartDao: CartDAO) : ViewModel() {
             val cartItems = cartDao.getAllCartItems()
             val totalPrice = cartItems.sumOf { it.price * it.quantity }
             (totalBasketPrice as MutableLiveData).value = totalPrice
+        }
+    }
+
+    fun placeOrder(order: OrdersEntity){
+        viewModelScope.launch {
+            ordersRepo.insertOrder(order)
         }
     }
 }

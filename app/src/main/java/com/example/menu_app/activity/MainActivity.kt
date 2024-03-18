@@ -31,7 +31,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val vmFactory = vmFactory((application as startup).cartDatabase.cartDAO())
+        val cartRepo = (application as startup).cartDatabase.cartRepository()
+        val dishRepo = (application as startup).database.dishRepository()
+        val vmFactory = vmFactory(cartRepo, dishRepo)
         viewModel = ViewModelProvider(this, vmFactory)[mainViewModel::class.java]
 
         drawerLayout = findViewById(R.id.mainDrawerLayout)

@@ -22,6 +22,10 @@ class CartRepository (private val cartDAO: CartDAO){
         return cartDAO.getAllCartItems()
     }
 
+    suspend fun getTotalPrice(): Double {
+        return cartDAO.getTotalPrice()
+    }
+
     suspend fun clearCart() {
         cartDAO.clearCart()
     }

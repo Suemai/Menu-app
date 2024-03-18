@@ -68,7 +68,7 @@ class AddDishFragment : Fragment(){
             dishPrice = price.toDouble())
 
         dishRepository.insertDish(dish)
-        Toast.makeText(context, "Dish added!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "$name has been added to the database", Toast.LENGTH_SHORT).show()
         requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 }

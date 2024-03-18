@@ -9,6 +9,10 @@ import androidx.room.RoomDatabase
 abstract class CartDatabase : RoomDatabase(){
     abstract fun cartDAO(): CartDAO
 
+    fun cartRepository(): CartRepository {
+        return CartRepository(cartDAO())
+    }
+
     companion object {
         private const val DATABASE_NAME = "cart_database"
 

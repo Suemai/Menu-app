@@ -11,13 +11,18 @@ import androidx.room.Room
 
 class startup : Application(){
     val database by lazy {
-        Room.databaseBuilder(this, com.example.menu_app.database.dishes.dishesDatabase::class.java, "dishes.db")
+        Room.databaseBuilder(this, com.example.menu_app.database.dishes.DishesDatabase::class.java, "dishes.db")
             .createFromAsset("dishes.db")
             .build()
     }
 
     val cartDatabase by lazy {
         Room.databaseBuilder(this, com.example.menu_app.database.basket.CartDatabase::class.java, "cart.db")
+            .build()
+    }
+
+    val ordersDatabase by lazy {
+        Room.databaseBuilder(this, com.example.menu_app.database.orders.OrdersDatabase::class.java, "orders.db")
             .build()
     }
 }

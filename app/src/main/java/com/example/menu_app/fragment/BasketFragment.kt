@@ -23,6 +23,7 @@ import com.example.menu.R
 import com.example.menu_app.adapter.BasketAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.basket.CartDAO
+import com.example.menu_app.database.basket.CartRepository
 import com.example.menu_app.viewModel.mainViewModel
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -34,7 +35,7 @@ import java.util.*
 
 class BasketFragment : Fragment() {
 
-    private lateinit var cartDao: CartDAO
+    private lateinit var cartRepo: CartRepository
     private lateinit var basketRecyclerView: RecyclerView
     private lateinit var basketAdapter: BasketAdapter
     private lateinit var mainVM: mainViewModel
@@ -46,7 +47,9 @@ class BasketFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Basket"
-        cartDao = (requireActivity().application as startup).cartDatabase.cartDAO()
+
+        val cartDb = (requireActivity().application as startup).cartDatabase.cartDAO()
+        cartRepo = CartRepository(cartDb)
     }
 
     override fun onCreateView(
@@ -115,7 +118,7 @@ class BasketFragment : Fragment() {
 
         // Initialize and set up the RecyclerView and Adapter
         basketRecyclerView = view.findViewById(R.id.dish_basket_recyclerView)
-        basketAdapter = BasketAdapter(cartDao, mainVM, viewLifecycleOwner)
+        basketAdapter = BasketAdapter(cartRepo, mainVM, viewLifecycleOwner)
 
         // Set the layout manager and adapter
         val layoutManager = LinearLayoutManager(requireContext())
@@ -124,7 +127,7 @@ class BasketFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val cartItems = cartDao.getAllCartItems().toMutableList()
+                val cartItems = cartRepo.getAllCartItems().toMutableList()
                 basketAdapter.setCartItems(cartItems)
             }
         }

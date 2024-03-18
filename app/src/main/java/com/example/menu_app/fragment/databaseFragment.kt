@@ -1,10 +1,12 @@
 package com.example.menu_app.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.example.menu.R
 import com.example.menu_app.adapter.searchMainAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.dishes.dishRepository
+import com.example.menu_app.viewModel.mainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
 
@@ -29,6 +32,7 @@ class DatabaseFragment : Fragment() {
     private lateinit var dishesRecyclerView: RecyclerView
     private lateinit var addDishButton: FloatingActionButton
     private lateinit var searchView: androidx.appcompat.widget.SearchView
+    private lateinit var viewModel: mainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,6 +48,8 @@ class DatabaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[mainViewModel::class.java]
 
         val listOfDishes = runBlocking {
             dishRepository.getAllDishes()
@@ -61,13 +67,9 @@ class DatabaseFragment : Fragment() {
         // click listeners for dishes
         dishAdapter.setOnItemClickListener { position ->
             val selectedDish = listOfDishes[position]
-            val action = DatabaseFragmentDirections.actionDatabaseFragmentToDishPageFragment(
-                dishNumber = selectedDish.dishId.toString(),
-                dishName = selectedDish.dishEnglishName,
-                dishCnName = selectedDish.dishChineseName,
-                dishStaffName = selectedDish.dishStaffName,
-                dishPrice = selectedDish.dishPrice.toFloat())
-            findNavController().navigate(action)
+            viewModel.setDishesData(selectedDish)
+            val toDishPage = DatabaseFragmentDirections.actionDatabaseFragmentToDishPageFragment()
+            findNavController().navigate(toDishPage)
 
             // Testing
             //Toast.makeText(requireContext(), "Item clicked at position $position", Toast.LENGTH_SHORT).show()
@@ -83,20 +85,26 @@ class DatabaseFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let{
-                    val filteredDishes = listOfDishes.filter { dishes ->
-                        dishes.dishEnglishName.contains(newText, ignoreCase = true) ||
-                                dishes.dishId.toString().contains(newText, ignoreCase = true)
-                    }
+                    val filteredDishes = viewModel.filterDishes(listOfDishes, newText)
                     dishAdapter.filterList(filteredDishes)
                 }
                 return true
             }
         })
 
+        viewModel.changesMade.observe(viewLifecycleOwner) { refresh ->
+            Log.d("DatabaseFragment", "checking for changes")
+            if (refresh){
+                Log.d("DatabaseFragment", "Changes found, refreshing list")
+                dishAdapter.notifyDataSetChanged()
+                viewModel.refreshDone("database")
+                Log.d("DatabaseFragment", "Refresh done")
+            }
+        }
+
         // Add dishes button
         addDishButton = view.findViewById(R.id.add_new_dish_button)
         addDishButton.setOnClickListener {
-
             // navigate to add dish fragment
             val action = DatabaseFragmentDirections.actionDatabaseFragmentToAddDishFragment()
             findNavController().navigate(action)

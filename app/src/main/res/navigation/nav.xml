@@ -32,27 +32,6 @@
             android:name="com.example.menu_app.fragment.dishPageFragment"
             android:label="dishPageFragment"
             tools:layout="@layout/fragment_dish_page">
-
-        <!-- All the arguments!!!  -->
-        <argument
-                android:name="dishNumber"
-                app:argType="string"/>
-
-        <argument
-                android:name="dishName"
-                app:argType="string"/>
-
-        <argument
-                android:name="dishCnName"
-                app:argType="string"/>
-
-        <argument
-                android:name="dishStaffName"
-                app:argType="string"/>
-
-        <argument
-                android:name="dishPrice"
-                app:argType="float"/>
     </fragment>
     <fragment
             android:id="@+id/addDishFragment"

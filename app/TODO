@@ -1,0 +1,59 @@
+To-Do List
+
+Features
+- Shopping basket                                       DONE
+- Order history
+- Settings
+- Edit dishes                                           DONE
+- Set meals
+- Print receipts
+- Print orders
+- Change receipt layout
+- Change order layout
+- Daily report
+
+Implementations to do
+- Shopping basket
+    -> Add dishes to shopping basket                    DONE
+    -> Remove dishes from shopping basket               DONE
+    -> Edit dishes in shopping basket                   DONE
+    -> Add times to dishes in shopping basket           DONE
+    -> Add notes to dish                                DONE
+    -> Add order numbers to the basket
+    -> Print shopping basket
+
+- Order history
+    -> Database of orders
+        -> Order number/ID
+            -> Order itself
+        -> Date
+    -> View all orders
+    -> View specific order
+    -> Order deletion after a certain period
+
+- Settings
+    -> Change receipt layout
+    -> Change order layout
+
+- Dishes Page                                           DONE
+    -> Change Prices                                    DONE
+    -> Change Names                                     DONE
+    -> Delete dish                                      DONE
+
+- Set meals
+    -> Create set meals database
+    -> Change set meal dishes
+    -> Change set meal prices
+
+
+- Library to use
+    -> https://github.com/DantSu/ESCPOS-ThermalPrinter-Android
+
+- ideas
+    -> Long press to add notes                                      DONE
+    -> Popup dialog / full screen dialog after order is placed
+        -> Time done
+        -> Random order number
+        -> Print customer receipt?
+    -> left swipe to delete dish from shopping basket               DONE
+    -> Tabs to switch between database and set menu

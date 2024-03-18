@@ -22,6 +22,7 @@ import com.example.menu.R
 import com.example.menu_app.adapter.searchMainAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.basket.CartDAO
+import com.example.menu_app.database.basket.CartRepository
 import com.example.menu_app.database.dishes.dishRepository
 import com.example.menu_app.database.dishes.dishesEntity
 import com.example.menu_app.viewModel.mainViewModel
@@ -46,7 +47,7 @@ class mainFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var viewBasket: RelativeLayout
     private lateinit var viewBasketBtn: Button
-    private lateinit var cartDao: CartDAO
+    private lateinit var cartRepo: CartRepository
     private lateinit var viewModel: mainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +61,8 @@ class mainFragment : Fragment() {
         val database = (requireActivity().application as startup).database
         dishRepository = dishRepository(database.dishesDAO())
 
-        cartDao = (requireActivity().application as startup).cartDatabase.cartDAO()
+        val cartDb = (requireActivity().application as startup).cartDatabase.cartDAO()
+        cartRepo = CartRepository(cartDb)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -121,6 +123,15 @@ class mainFragment : Fragment() {
 
         // Observe the LiveData properties in the ViewModel
         // aka update the UI when the data changes - the setup
+        viewModel.changesMade.observe(viewLifecycleOwner) { refresh ->
+            if (refresh){
+                Log.d("mainFragment", "Changes made, refreshing list")
+                dishAdapter.notifyDataSetChanged()
+                viewModel.refreshDone("main")
+                Log.d("mainFragment", "Refresh done")
+            }
+        }
+
         viewModel.totalBasketPrice.observe(viewLifecycleOwner) {totalPrice ->
             view.findViewById<TextView>(R.id.text_total_price).text = String.format("£%.2f", totalPrice)
         }
@@ -173,4 +184,11 @@ class mainFragment : Fragment() {
             .create()
             .show()
     }
+
+//    fun refreshData() {
+//        Log.d("mainFragment", "Changes made, refreshing list")
+//        dishAdapter.notifyDataSetChanged()
+//        viewModel.refreshDone()
+//        Log.d("mainFragment", "Refresh done")
+//    }
 }

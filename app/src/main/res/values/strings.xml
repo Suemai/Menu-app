@@ -43,4 +43,5 @@
     <string name="add_5_mins">+5 mins</string>
     <string name="basket_order">Order</string>
     <string name="view_basket">View Basket</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.menu_app.fragment
 
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -7,7 +8,9 @@ import android.os.Looper
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -41,8 +44,10 @@ class BasketFragment : Fragment() {
     private lateinit var mainVM: mainViewModel
     private lateinit var timeReady: TextView
     private lateinit var estimatedTime: TextView
+    private lateinit var billName: TextView
     private lateinit var addTime: Button
     private lateinit var setTime: Button
+    private lateinit var setName: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -212,11 +217,33 @@ class BasketFragment : Fragment() {
                 }
             }
         }).attachToRecyclerView(basketRecyclerView)
+
+        // Bill name setup
+        setName = view.findViewById(R.id.billNameButton)
+        setName.setOnClickListener {
+            nameDialog()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         // Reset edit mode to false when fragment is paused
         mainVM.setEditMode(enabled = false)
+    }
+
+    private fun nameDialog(){
+        val addName = EditText(requireContext())
+        billName = requireView().findViewById(R.id.bill_name_txt)
+        addName.hint = "Enter name here"
+        AlertDialog.Builder(requireContext())
+            .setTitle("Add name")
+            .setView(addName)
+            .setPositiveButton("Add"){ _, _ ->
+                val name = addName.text.toString()
+                billName.text = name
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show()
     }
 }

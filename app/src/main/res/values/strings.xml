@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Menu_app</string>
+    <string name="app_name">Menu</string>
     <string name="dish_name">Dish Name</string>
     <string name="cn_name">cn Name</string>
     <string name="price">Price</string>
@@ -44,4 +44,8 @@
     <string name="basket_order">Order</string>
     <string name="view_basket">View Basket</string>
     <string name="cancel">Cancel</string>
+    <string name="bill_name">Bill Name</string>
+    <string name="bill_name_txt">Bill name: &#160;</string>
+    <string name="name">name</string>
+    <string name="time_ordered">Time ordered: &#160;</string>
 </resources>

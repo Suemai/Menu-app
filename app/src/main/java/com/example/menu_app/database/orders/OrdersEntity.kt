@@ -25,7 +25,10 @@ data class OrdersEntity (
     val time: LocalTime,
 
     @ColumnInfo(name="order")
-    val orders: CartList
+    val orders: CartList,
+
+    @ColumnInfo(name = "price")
+    val price: Double
 )
 
 data class CartList(

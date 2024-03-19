@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- List of dishes in the basket -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/order_page_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_above="@id/order_page_totalPriceLayout"
+            android:layout_below="@id/order_page_time_layout"/>
+
+    <!-- == Time made ============================================== -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentStart="true"
+            android:id="@+id/order_page_time_layout"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+        <TextView
+                android:id="@+id/order_time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_ordered"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"/>
+
+        <TextView
+                android:id="@+id/order_page_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actual_time"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+    </LinearLayout>
+
+    <!-- Total price of the basket -->
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_page_totalPriceLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:gravity="center_horizontal">
+
+        <TextView
+                android:id="@+id/order_page_totalPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/basket_total_price_title"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+        <TextView
+                android:id="@+id/order_page_total_basket_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/basket_total_price"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/order_page_totalPriceTextView"/>
+    </RelativeLayout>
+</RelativeLayout>

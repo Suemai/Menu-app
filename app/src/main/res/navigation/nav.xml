@@ -43,4 +43,19 @@
             android:name="com.example.menu_app.fragment.BasketFragment"
             android:label="BasketFragment"
             tools:layout="@layout/fragment_basket"/>
+
+    <fragment
+            android:id="@+id/orderRecordFragment"
+            android:name="com.example.menu_app.fragment.OrderRecordFragment"
+            android:label="OrderRecordFragment"
+            tools:layout="@layout/fragment_order_record">
+        <action
+                android:id="@+id/action_orderRecordFragment_to_orderPageFragment"
+                app:destination="@id/orderPageFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/orderPageFragment"
+            android:name="com.example.menu_app.fragment.OrderPageFragment"
+            android:label="OrderPageFragment"
+            tools:layout="@layout/fragment_order_page"/>
 </navigation>

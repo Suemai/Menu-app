@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <!-- List of dishes in the basket -->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dish_basket_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/totalPriceLayout"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentTop="true"/>
 
     <!-- Total price of the basket -->
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/totalPriceLayout"
+            android:layout_above="@id/estimated_time_layout">
 
         <TextView
                 android:id="@+id/totalPriceTextView"
@@ -41,34 +46,33 @@
 
     <!-- Estimated time for order completion -->
     <LinearLayout
+            android:id="@+id/estimated_time_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp">
+            android:orientation="vertical"
+            android:layout_above="@id/basket_buttons"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp">
 
-        <!-- Times ===============================================-->
+        <!-- == Times ============================================== -->
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1">
+                android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                    android:id="@+id/estimatedTimeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="@string/estimated_time_title"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
 
-                <TextView
-                        android:id="@+id/estimatedTimeTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/estimated_time_title"
-                        android:textStyle="bold"
-                        android:layout_marginStart="10dp"
-                        android:layout_gravity="center_vertical"/>
-
-                <TextView
+            <TextView
                     android:id="@+id/estimatedTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,69 +80,119 @@
                     android:textStyle="bold|italic"
                     android:layout_gravity="center_vertical"/>
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/estimatedTimeMins"
-                        android:text="@string/estimated_time_mins"
-                        android:layout_marginEnd="5dp"
-                        android:textStyle="bold|italic"
-                        android:layout_gravity="center_vertical"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                <TextView
-                        android:id="@+id/actualTimeTextView_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/actual_time_title"
-                        android:textStyle="bold"
-                        android:layout_marginStart="10dp"
-                        android:layout_gravity="center_vertical"/>
-
-                <TextView
-                        android:id="@+id/actualTimeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/actual_time"
-                        android:textStyle="bold"/>
-
-            </LinearLayout>
-
+                    android:id="@+id/estimatedTimeMins"
+                    android:text="@string/estimated_time_mins"
+                    android:layout_marginEnd="5dp"
+                    android:textStyle="bold|italic"
+                    android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/basket_buttons">
-            <!-- Button to increase estimated time -->
-            <Button
-                    android:layout_width="0dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/actualTimeTextView_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/increaseTimeButton"
-                    android:text="@string/add_5_mins"
-                    android:padding="3dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
+                    android:text="@string/actual_time_title"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
                     android:layout_gravity="center_vertical"/>
 
-            <!-- Button to set actual estimated time -->
-            <Button
-                    android:id="@+id/actualTimeButton"
-                    android:layout_width="0dp"
+            <TextView
+                    android:id="@+id/actualTimeTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_time"
-                    android:layout_margin="5dp"
-                    android:padding="2dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    style="@style/ThemeOverlay.Material3.Button.TextButton"/>
+                    android:text="@string/actual_time"
+                    android:textStyle="bold"/>
+
         </LinearLayout>
+    </LinearLayout>
+
+    <!-- == Bill name ============================================== -->
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/estimated_time_layout"
+            android:layout_alignBottom="@id/estimated_time_layout"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/bill_name_layout">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bill_name_txt"
+                android:textSize="17sp"
+                android:id="@+id/bill_name_title"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="15sp"
+                android:id="@+id/bill_name_txt"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/basket_buttons"
+            android:layout_above="@id/orderButton">
+
+        <!-- Button to increase estimated time -->
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/increaseTimeButton"
+                android:text="@string/add_5_mins"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.Button"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"/>
+
+        <!-- Button to set actual estimated time -->
+        <Button
+                android:id="@+id/actualTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_time"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.Button"/>
+
+        <!-- Button to set order bill name -->
+        <Button
+                android:id="@+id/billNameButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bill_name"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.Button"/>
 
     </LinearLayout>
 
@@ -146,11 +200,14 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/orderButton"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="16dp"
             android:text="@string/basket_order"
             android:textSize="20sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             style="@style/Widget.Material3.Button"/>
 
-</LinearLayout>
+</RelativeLayout>

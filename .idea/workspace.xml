@@ -28,12 +28,22 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_database.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_dish_page.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_order_page.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
         </config>
@@ -48,7 +58,17 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/test.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/basket_menu.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/drawer_menu.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
         </config>
@@ -112,10 +132,10 @@
         <option value="Class" />
         <option value="navigationResourceFile" />
         <option value="Kotlin Data Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -180,7 +200,7 @@
   </component>
   <component name="RunManager" selected="Android App.Menu-app.Menu.app">
     <configuration name="Menu-app.Menu.app" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="Menu-app.Menu.app.main~1" />
+      <module name="Menu-app.Menu.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -409,7 +429,7 @@
       <workItem from="1710623705765" duration="2499000" />
       <workItem from="1710651580712" duration="31000" />
       <workItem from="1710651621216" duration="2461000" />
-      <workItem from="1710694587515" duration="15899000" />
+      <workItem from="1710694587515" duration="34388000" />
     </task>
     <servers />
   </component>

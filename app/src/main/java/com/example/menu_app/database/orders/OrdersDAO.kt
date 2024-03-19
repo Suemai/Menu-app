@@ -15,4 +15,5 @@ interface OrdersDAO {
 
     @Query("SELECT * FROM orders")
     suspend fun getAllOrders(): List<OrdersEntity>
+
 }

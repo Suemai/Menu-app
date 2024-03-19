@@ -2,26 +2,49 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
-    <LinearLayout
-            android:layout_width="match_parent"
+    <TextView
+            android:id="@+id/order_number"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:text="999"
+            android:padding="5dp"
+            android:layout_marginEnd="10dp"/>
 
-        <TextView
-                android:id="@+id/textViewOrderName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Order Name"/>
+    <TextView
+            android:id="@+id/order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Name"
+            android:padding="5dp"
+            android:layout_toEndOf="@id/order_number"
+            android:layout_marginEnd="5dp"/>
 
-        <TextView
-                android:id="@+id/textViewTotalPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/basket_total_price"/>
-    </LinearLayout>
+    <TextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd:mm:yyyy"
+            android:padding="5dp"
+            android:layout_toEndOf="@id/order_name"
+            android:layout_marginEnd="5dp"/>
+
+    <TextView
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hh:mm"
+            android:padding="5dp"
+            android:layout_toEndOf="@id/order_date"/>
+
+    <TextView
+            android:id="@+id/order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/basket_total_price"
+            android:layout_alignParentEnd="true"
+            android:padding="5dp"/>
 
 </RelativeLayout>

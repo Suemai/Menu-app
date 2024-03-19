@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [dishesEntity::class], version = 1)
+@Database(entities = [DishesEntity::class], version = 1, exportSchema = false)
 abstract class DishesDatabase : RoomDatabase() {
-    abstract fun dishesDAO(): dishesDAO
+    abstract fun dishesDAO(): DishesDAO
 
-    fun dishRepository(): dishRepository {
-        return dishRepository(dishesDAO())
+    fun dishRepository(): DishRepository{
+        return DishRepository(dishesDAO())
     }
 
     //building the database

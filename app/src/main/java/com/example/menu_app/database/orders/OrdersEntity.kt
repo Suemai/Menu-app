@@ -3,7 +3,7 @@ package com.example.menu_app.database.orders
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.menu_app.database.basket.CartItem
+import com.example.menu_app.database.basket.CartEntity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -29,5 +29,5 @@ data class OrdersEntity (
 )
 
 data class CartList(
-    var orders: List<CartItem>
+    var orders: List<CartEntity>
 )

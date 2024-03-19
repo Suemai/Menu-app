@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.adapter.searchMainAdapter
 import com.example.menu_app.application.startup
-import com.example.menu_app.database.dishes.dishRepository
+import com.example.menu_app.database.dishes.DishRepository
 import com.example.menu_app.viewModel.mainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.runBlocking
@@ -28,7 +28,7 @@ Objective for this fragment:
 class DatabaseFragment : Fragment() {
 
     private lateinit var dishAdapter: searchMainAdapter
-    private lateinit var dishRepository: dishRepository
+    private lateinit var dishRepository: DishRepository
     private lateinit var dishesRecyclerView: RecyclerView
     private lateinit var addDishButton: FloatingActionButton
     private lateinit var searchView: androidx.appcompat.widget.SearchView
@@ -43,7 +43,7 @@ class DatabaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val database = (requireActivity().application as startup).database
-        dishRepository = dishRepository(database.dishesDAO())
+        dishRepository = DishRepository(database.dishesDAO())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

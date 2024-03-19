@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
-import com.example.menu_app.database.dishes.dishesEntity
+import com.example.menu_app.database.dishes.DishesEntity
 
-class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Adapter<searchMainAdapter.ViewHolder>() {
+class searchMainAdapter (private var dishes:List<DishesEntity>): RecyclerView.Adapter<searchMainAdapter.ViewHolder>() {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
     private var onItemLongClickListener: ((Int) -> Unit)? = null
@@ -55,7 +55,7 @@ class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Ad
     }
 
     // Function to update dataset and refresh the RecyclerView
-    fun filterList(filteredDishes: List<dishesEntity>) {
+    fun filterList(filteredDishes: List<DishesEntity>) {
         dishes = filteredDishes
         notifyDataSetChanged()
     }
@@ -64,7 +64,7 @@ class searchMainAdapter (private var dishes:List<dishesEntity>): RecyclerView.Ad
         onItemLongClickListener = listener
     }
 
-    fun updateList(newDishes: List<dishesEntity>){
+    fun updateList(newDishes: List<DishesEntity>){
         dishes = newDishes
         notifyDataSetChanged()
     }

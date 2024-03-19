@@ -13,23 +13,23 @@ import androidx.room.PrimaryKey
  */
 
 @Entity(tableName = "dishes")
-data class dishesEntity (
+data class DishesEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "IDNumber")
     val iDNumber: Long = 0,
 
     @ColumnInfo(name = "number")
-    val dishId:String?,
+    var dishId:String?,
 
     @ColumnInfo(name = "name")
-    val dishEnglishName: String,
+    var dishEnglishName: String,
 
     @ColumnInfo(name = "cnName")
-    val dishChineseName: String,
+    var dishChineseName: String,
 
     @ColumnInfo(name = "cnStaffName")
-    val dishStaffName: String,
+    var dishStaffName: String,
 
     @ColumnInfo(name = "price")
-    val dishPrice: Double)
+    var dishPrice: Double)
 

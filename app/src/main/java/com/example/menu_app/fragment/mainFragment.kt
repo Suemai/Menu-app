@@ -12,7 +12,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
@@ -21,12 +20,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.adapter.searchMainAdapter
 import com.example.menu_app.application.startup
-import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.basket.CartRepository
-import com.example.menu_app.database.dishes.dishRepository
-import com.example.menu_app.database.dishes.dishesEntity
+import com.example.menu_app.database.dishes.DishRepository
+import com.example.menu_app.database.dishes.DishesEntity
 import com.example.menu_app.viewModel.mainViewModel
-import com.example.menu_app.viewModel.vmFactory
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -42,7 +39,7 @@ Objective for this fragment:
 class mainFragment : Fragment() {
 
     private lateinit var dishAdapter: searchMainAdapter
-    private lateinit var dishRepository: dishRepository
+    private lateinit var dishRepository: DishRepository
     private lateinit var dishesRecyclerView: RecyclerView
     private lateinit var searchView: SearchView
     private lateinit var viewBasket: RelativeLayout
@@ -59,7 +56,7 @@ class mainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val database = (requireActivity().application as startup).database
-        dishRepository = dishRepository(database.dishesDAO())
+        dishRepository = DishRepository(database.dishesDAO())
 
         val cartDb = (requireActivity().application as startup).cartDatabase.cartDAO()
         cartRepo = CartRepository(cartDb)
@@ -167,7 +164,7 @@ class mainFragment : Fragment() {
         //viewModel.setEditMode(false)
     }
 
-    private fun showNoteDialog(dish: dishesEntity){
+    private fun showNoteDialog(dish: DishesEntity){
         // testing
         Log.d("mainFragment", "showNoteDialog: called")
 

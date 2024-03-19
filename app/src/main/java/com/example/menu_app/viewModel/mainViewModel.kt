@@ -2,31 +2,28 @@ package com.example.menu_app.viewModel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.menu_app.database.basket.CartDAO
-import com.example.menu_app.database.basket.CartItem
+import com.example.menu_app.database.basket.CartEntity
 import com.example.menu_app.database.basket.CartRepository
-import com.example.menu_app.database.dishes.dishRepository
-import com.example.menu_app.database.dishes.dishesEntity
-import com.example.menu_app.database.orders.OrdersEntity
-import com.example.menu_app.database.orders.OrdersRepository
+import com.example.menu_app.database.dishes.DishRepository
+import com.example.menu_app.database.dishes.DishesEntity
 import kotlinx.coroutines.launch
 
-class mainViewModel (private val cartRepo: CartRepository, private val dishRepo: dishRepository) : ViewModel() {
+class mainViewModel (private val cartRepo: CartRepository, private val dishRepo: DishRepository) : ViewModel() {
 
-    private val dishData = MutableLiveData<dishesEntity>()
+    private val dishData = MutableLiveData<DishesEntity>()
 
     //Define LiveData properties
     val textItemCount: LiveData<Int> = MutableLiveData()
     val totalBasketPrice: LiveData<Double> = MutableLiveData()
 
-    val filteredDishes: LiveData<List<dishesEntity>> = MutableLiveData()
+    val filteredDishes: LiveData<List<DishesEntity>> = MutableLiveData()
     val isCartEmpty: LiveData<Boolean> = MutableLiveData()
 
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
 
-    private val _cartItems = MutableLiveData<List<CartItem>>()
-    val cartItems: LiveData<List<CartItem>> = _cartItems
+    private val _cartItems = MutableLiveData<List<CartEntity>>()
+    val cartItems: LiveData<List<CartEntity>> = _cartItems
 
     private val _changesMade = MutableLiveData<Boolean>()
     val changesMade: LiveData<Boolean> = _changesMade
@@ -50,16 +47,16 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    suspend fun addToCart(position: dishesEntity){
+    suspend fun addToCart(position: DishesEntity){
         val existingItem = cartRepo.getCartItemByName(position.dishEnglishName)
         if (existingItem == null){
-            val cartItem = CartItem(
+            val cartEntity = CartEntity(
                 name = position.dishEnglishName,
                 price = position.dishPrice,
                 quantity = 1,
                 notes = ""
             )
-            cartRepo.insertCartItem(cartItem)
+            cartRepo.insertCartItem(cartEntity)
         }else{
             existingItem.quantity++
             cartRepo.updateCartItem(existingItem)
@@ -70,17 +67,17 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         updateTotalBasketPrice()
     }
 
-    suspend fun addNoteToCart(dish: dishesEntity, note: String){
+    suspend fun addNoteToCart(dish: DishesEntity, note: String){
         Log.d("MainViewModel", "addNoteToCart: $note")
         val existingItem = cartRepo.getCartItemByName(dish.dishEnglishName)
         if (existingItem == null){
-            val cartItem = CartItem(
+            val cartEntity = CartEntity(
                 name = dish.dishEnglishName,
                 price = dish.dishPrice,
                 quantity = 1,
                 notes = note
             )
-            cartRepo.insertCartItem(cartItem)
+            cartRepo.insertCartItem(cartEntity)
         } else {
             existingItem.quantity++
             existingItem.notes = note
@@ -97,7 +94,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    fun filterDishes(dishes: List<dishesEntity>, newText: String): List<dishesEntity>{
+    fun filterDishes(dishes: List<DishesEntity>, newText: String): List<DishesEntity>{
         // Filter dishes based on search text
         return dishes.filter { dish ->
             dish.dishEnglishName.contains(newText, ignoreCase = true) ||
@@ -153,33 +150,44 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    fun setDishesData(dishes: dishesEntity){
+    fun setDishesData(dishes: DishesEntity){
         dishData.value = dishes
     }
 
-    fun getDishesData(): LiveData<dishesEntity> {
+    fun getDishesData(): LiveData<DishesEntity> {
         return dishData
     }
 
     // Generally for the dish page //////////////////////////////////////////
     suspend fun saveChanges(
+        dishIdNo: Long,
         dishNumber: String,
         dishName: String,
         dishCnName: String,
-        dishStaffName: String,
-        dishPrice: Double
+        staffName: String,
+        price: Double
     ){
         try {
-            val updatedDish = dishesEntity(
-                dishId = dishNumber,
-                dishEnglishName = dishName,
-                dishChineseName = dishCnName,
-                dishStaffName = dishStaffName,
-                dishPrice = dishPrice
-            )
-            dishRepo.updateDish(updatedDish)
-            setDishesData(updatedDish)
-            Log.d("Updated dish", updatedDish.toString())
+            val existingDish = dishRepo.getDishByID(dishIdNo)
+//            val updatedDish = DishesEntity(
+//                dishId = dishNumber,
+//                dishEnglishName = dishName,
+//                dishChineseName = dishCnName,
+//                dishStaffName = dishStaffName,
+//                dishPrice = dishPrice
+//            )
+            existingDish?.apply {
+                dishId = dishNumber
+                dishEnglishName = dishName
+                dishChineseName = dishCnName
+                dishStaffName = staffName
+                dishPrice = price
+            }
+            existingDish?.let { dishRepo.updateDish(it) }
+            existingDish?.let { setDishesData(it) }
+//            dishRepo.updateDish(updatedDish)
+//            setDishesData(updatedDish)
+            Log.d("Updated dish", existingDish.toString())
             Log.d("mainViewModel", changesMade.value.toString())
             _changesMade.value = true
         }catch (e: Exception){
@@ -192,7 +200,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    suspend fun deleteDish(dish: dishesEntity){
+    suspend fun deleteDish(dish: DishesEntity){
         try {
             dishRepo.delete(dish)
         }catch (e: Exception){

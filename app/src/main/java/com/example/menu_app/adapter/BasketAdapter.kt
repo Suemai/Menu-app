@@ -11,15 +11,14 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
-import com.example.menu_app.database.basket.CartDAO
-import com.example.menu_app.database.basket.CartItem
+import com.example.menu_app.database.basket.CartEntity
 import com.example.menu_app.database.basket.CartRepository
 import com.example.menu_app.viewModel.mainViewModel
 import kotlinx.coroutines.*
 
 class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: mainViewModel, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BasketAdapter.ViewHolder>(){
 
-    private var cartItems: MutableList<CartItem> = mutableListOf()
+    private var cartEntities: MutableList<CartEntity> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_dishes_item, parent, false)
@@ -27,24 +26,24 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val cartItem = cartItems[position]
+        val cartItem = cartEntities[position]
         holder.bind(cartItem)
     }
 
     override fun getItemCount(): Int {
-        return cartItems.size
+        return cartEntities.size
     }
 
     fun deleteItem(position: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            if (cartItems.isNotEmpty()){
+            if (cartEntities.isNotEmpty()){
                 CoroutineScope(Dispatchers.IO).launch {
                     // Delete item from the database
-                    cartRepo.deleteCartItem(cartItems[position])
-                    Log.d("BasketAdapter", cartItems[position].toString())
+                    cartRepo.deleteCartItem(cartEntities[position])
+                    Log.d("BasketAdapter", cartEntities[position].toString())
 
-                    cartItems.removeAt(position)
-                    Log.d("BasketAdapter", cartItems.toString())
+                    cartEntities.removeAt(position)
+                    Log.d("BasketAdapter", cartEntities.toString())
                     mainVM.updateCart()
 
                     withContext(Dispatchers.Main) {
@@ -56,13 +55,13 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
         }
     }
 
-    fun setCartItems(cartItems: MutableList<CartItem>){
-        this.cartItems = cartItems
+    fun setCartItems(cartEntities: MutableList<CartEntity>){
+        this.cartEntities = cartEntities
         notifyDataSetChanged()
     }
 
-    fun getCartItem(position: Int): CartItem {
-        return cartItems[position]
+    fun getCartItem(position: Int): CartEntity {
+        return cartEntities[position]
     }
 
     inner class ViewHolder(view: View, mainVM: mainViewModel) : RecyclerView.ViewHolder(view) {
@@ -91,16 +90,16 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
             }
         }
 
-        fun bind(cartItem: CartItem){
-            itemView.findViewById<TextView>(R.id.basket_dish_name).text = cartItem.name
-            itemView.findViewById<TextView>(R.id.basket_dish_price).text = String.format("£%.2f", cartItem.price*cartItem.quantity)
-            itemView.findViewById<TextView>(R.id.basket_dish_number_counter).text = cartItem.quantity.toString()
-            itemView.findViewById<TextView>(R.id.basket_dish_counter).text = cartItem.quantity.toString()
+        fun bind(cartEntity: CartEntity){
+            itemView.findViewById<TextView>(R.id.basket_dish_name).text = cartEntity.name
+            itemView.findViewById<TextView>(R.id.basket_dish_price).text = String.format("£%.2f", cartEntity.price*cartEntity.quantity)
+            itemView.findViewById<TextView>(R.id.basket_dish_number_counter).text = cartEntity.quantity.toString()
+            itemView.findViewById<TextView>(R.id.basket_dish_counter).text = cartEntity.quantity.toString()
 
             val notes = itemView.findViewById<TextView>(R.id.basket_dish_note)
-            notes.text = cartItem.notes
+            notes.text = cartEntity.notes
 
-            if(cartItem.notes.isNullOrEmpty()){
+            if(cartEntity.notes.isNullOrEmpty()){
                 notes.visibility = View.GONE
             } else {
                 notes.visibility = View.VISIBLE
@@ -109,8 +108,8 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
             // Add onClickListeners for the quantity adjustment buttons
             itemView.findViewById<ImageView>(R.id.add_dish_button).setOnClickListener{
                 coroutineScope.launch {
-                    cartItem.quantity++
-                    cartRepo.updateCartItem(cartItem)
+                    cartEntity.quantity++
+                    cartRepo.updateCartItem(cartEntity)
                     mainVM.updateCart()
                     withContext(Dispatchers.Main){
                         notifyItemChanged(adapterPosition)
@@ -119,10 +118,10 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
             }
 
             itemView.findViewById<ImageView>(R.id.reduce_dish_button).setOnClickListener{
-                if (cartItem.quantity > 1){
+                if (cartEntity.quantity > 1){
                     coroutineScope.launch {
-                        cartItem.quantity--
-                        cartRepo.updateCartItem(cartItem)
+                        cartEntity.quantity--
+                        cartRepo.updateCartItem(cartEntity)
                         mainVM.updateCart()
                         withContext(Dispatchers.Main){
                             notifyItemChanged(adapterPosition)
@@ -133,8 +132,8 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
                         //cartDAO.deleteCartItem(cartItem)
                         deleteItem(adapterPosition)
                         //mainVM.updateCart()
-                        Log.d("BasketAdapter", "Deleted item: $cartItem")
-                        Log.d("BasketAdapter", cartItems.toString())
+                        Log.d("BasketAdapter", "Deleted item: $cartEntity")
+                        Log.d("BasketAdapter", cartEntities.toString())
                     }
                 }
             }

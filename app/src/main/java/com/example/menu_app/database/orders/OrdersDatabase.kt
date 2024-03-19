@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [OrdersEntity::class], version = 1)
+@Database(entities = [OrdersEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class OrdersDatabase: RoomDatabase() {
     abstract fun ordersDAO(): OrdersDAO

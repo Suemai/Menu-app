@@ -6,19 +6,19 @@ import androidx.room.*
 interface CartDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCartItem(cartItem: CartItem)
+    suspend fun insertCartItem(cartEntity: CartEntity)
 
     @Update
-    suspend fun updateCartItem(cartItem: CartItem)
+    suspend fun updateCartItem(cartEntity: CartEntity)
 
     @Delete
-    suspend fun deleteCartItem(cartItem: CartItem)
+    suspend fun deleteCartItem(cartEntity: CartEntity)
 
     @Query("SELECT * FROM cart_items WHERE name = :name")
-    suspend fun getCartItemByName(name: String): CartItem?
+    suspend fun getCartItemByName(name: String): CartEntity?
 
     @Query("SELECT * FROM cart_items")
-    suspend fun getAllCartItems(): List<CartItem>
+    suspend fun getAllCartItems(): List<CartEntity>
 
     @Query("SELECT SUM(quantity * price) FROM cart_items")
     suspend fun getTotalPrice(): Double

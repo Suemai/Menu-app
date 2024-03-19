@@ -80,7 +80,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -113,9 +113,9 @@
         <option value="navigationResourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin Object" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -409,7 +409,7 @@
       <workItem from="1710623705765" duration="2499000" />
       <workItem from="1710651580712" duration="31000" />
       <workItem from="1710651621216" duration="2461000" />
-      <workItem from="1710694587515" duration="5514000" />
+      <workItem from="1710694587515" duration="15899000" />
     </task>
     <servers />
   </component>

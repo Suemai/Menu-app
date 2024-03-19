@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.menu.R
-import com.example.menu_app.database.dishes.dishRepository
-import com.example.menu_app.database.dishes.dishesEntity
+import com.example.menu_app.database.dishes.DishRepository
+import com.example.menu_app.database.dishes.DishesEntity
 import kotlinx.coroutines.launch
 
 class AddDishFragment : Fragment(){
@@ -22,7 +22,7 @@ class AddDishFragment : Fragment(){
     private lateinit var newDishStaffName : EditText
     private lateinit var newDishPrice : EditText
     private lateinit var addDishButton : Button
-    private lateinit var dishRepository: dishRepository
+    private lateinit var dishRepository: DishRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,7 +60,7 @@ class AddDishFragment : Fragment(){
             return
         }
 
-        val dish = dishesEntity(
+        val dish = DishesEntity(
             dishId = number,
             dishEnglishName = name,
             dishChineseName = cnName,

@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.menu.R
 import com.example.menu_app.application.startup
-import com.example.menu_app.database.dishes.dishRepository
+import com.example.menu_app.database.dishes.DishRepository
 import com.example.menu_app.viewModel.mainViewModel
 import kotlinx.coroutines.launch
 
@@ -43,14 +43,14 @@ class dishPageFragment : Fragment() {
     private lateinit var buttonLayout: LinearLayout
     private lateinit var saveLayout: LinearLayout
 
-    private lateinit var dishRepository: dishRepository
+    private lateinit var dishRepository: DishRepository
     private lateinit var viewModel: mainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val database = (requireActivity().application as startup).database
-        dishRepository = dishRepository(database.dishesDAO())
+        dishRepository = DishRepository(database.dishesDAO())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -124,6 +124,7 @@ class dishPageFragment : Fragment() {
         saveButton.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.saveChanges(
+                    viewModel.getDishesData().value!!.iDNumber,
                     dishNumberEditText.text.toString(),
                     dishNameEditText.text.toString(),
                     dishCnNameEditText.text.toString(),

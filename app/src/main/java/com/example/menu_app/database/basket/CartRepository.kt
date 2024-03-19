@@ -2,23 +2,23 @@ package com.example.menu_app.database.basket
 
 class CartRepository (private val cartDAO: CartDAO){
 
-    suspend fun insertCartItem(cartItem: CartItem) {
-        cartDAO.insertCartItem(cartItem)
+    suspend fun insertCartItem(cartEntity: CartEntity) {
+        cartDAO.insertCartItem(cartEntity)
     }
 
-    suspend fun updateCartItem(cartItem: CartItem) {
-        cartDAO.updateCartItem(cartItem)
+    suspend fun updateCartItem(cartEntity: CartEntity) {
+        cartDAO.updateCartItem(cartEntity)
     }
 
-    suspend fun deleteCartItem(cartItem: CartItem) {
-        cartDAO.deleteCartItem(cartItem)
+    suspend fun deleteCartItem(cartEntity: CartEntity) {
+        cartDAO.deleteCartItem(cartEntity)
     }
 
-    suspend fun getCartItemByName(name: String): CartItem? {
+    suspend fun getCartItemByName(name: String): CartEntity? {
         return cartDAO.getCartItemByName(name)
     }
 
-    suspend fun getAllCartItems(): List<CartItem> {
+    suspend fun getAllCartItems(): List<CartEntity> {
         return cartDAO.getAllCartItems()
     }
 

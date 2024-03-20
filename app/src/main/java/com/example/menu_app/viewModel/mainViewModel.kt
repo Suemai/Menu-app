@@ -6,10 +6,12 @@ import com.example.menu_app.database.basket.CartEntity
 import com.example.menu_app.database.basket.CartRepository
 import com.example.menu_app.database.dishes.DishRepository
 import com.example.menu_app.database.dishes.DishesEntity
+import com.example.menu_app.database.orders.OrdersRepository
 import kotlinx.coroutines.launch
 
-class mainViewModel (private val cartRepo: CartRepository, private val dishRepo: DishRepository) : ViewModel() {
+class mainViewModel (private val cartRepo: CartRepository, private val dishRepo: DishRepository, private val ordersRepo: OrdersRepository) : ViewModel() {
 
+    // For dish page
     private val dishData = MutableLiveData<DishesEntity>()
 
     //Define LiveData properties
@@ -25,6 +27,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     private val _cartItems = MutableLiveData<List<CartEntity>>()
     val cartItems: LiveData<List<CartEntity>> = _cartItems
 
+    // For when database has been changed
     private val _changesMade = MutableLiveData<Boolean>()
     val changesMade: LiveData<Boolean> = _changesMade
 
@@ -150,6 +153,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
+    // Generally for the dish page //////////////////////////////////////////
     fun setDishesData(dishes: DishesEntity){
         dishData.value = dishes
     }
@@ -158,7 +162,6 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         return dishData
     }
 
-    // Generally for the dish page //////////////////////////////////////////
     suspend fun saveChanges(
         dishIdNo: Long,
         dishNumber: String,
@@ -169,13 +172,6 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     ){
         try {
             val existingDish = dishRepo.getDishByID(dishIdNo)
-//            val updatedDish = DishesEntity(
-//                dishId = dishNumber,
-//                dishEnglishName = dishName,
-//                dishChineseName = dishCnName,
-//                dishStaffName = dishStaffName,
-//                dishPrice = dishPrice
-//            )
             existingDish?.apply {
                 dishId = dishNumber
                 dishEnglishName = dishName

@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val cartRepo = (application as startup).cartDatabase.cartRepository()
         val dishRepo = (application as startup).database.dishRepository()
-        val vmFactory = vmFactory(cartRepo, dishRepo)
+        val ordersRepo = (application as startup).ordersDatabase.ordersRepository()
+        val vmFactory = vmFactory(cartRepo, dishRepo, ordersRepo)
         viewModel = ViewModelProvider(this, vmFactory)[mainViewModel::class.java]
 
         drawerLayout = findViewById(R.id.mainDrawerLayout)

@@ -27,6 +27,9 @@ import com.example.menu_app.adapter.BasketAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.basket.CartDAO
 import com.example.menu_app.database.basket.CartRepository
+import com.example.menu_app.database.orders.CartList
+import com.example.menu_app.database.orders.OrdersEntity
+import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -34,11 +37,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalTime
 import java.util.*
 
 class BasketFragment : Fragment() {
 
     private lateinit var cartRepo: CartRepository
+    private lateinit var orderRepo: OrdersRepository
     private lateinit var basketRecyclerView: RecyclerView
     private lateinit var basketAdapter: BasketAdapter
     private lateinit var mainVM: mainViewModel
@@ -48,6 +54,7 @@ class BasketFragment : Fragment() {
     private lateinit var addTime: Button
     private lateinit var setTime: Button
     private lateinit var setName: Button
+    private lateinit var placeOrder: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +62,9 @@ class BasketFragment : Fragment() {
 
         val cartDb = (requireActivity().application as startup).cartDatabase.cartDAO()
         cartRepo = CartRepository(cartDb)
+
+        val orderDb = (requireActivity().application as startup).ordersDatabase.ordersDAO()
+        orderRepo = OrdersRepository(orderDb)
     }
 
     override fun onCreateView(
@@ -223,6 +233,24 @@ class BasketFragment : Fragment() {
         setName.setOnClickListener {
             nameDialog()
         }
+
+        // Adding order to the order database
+        placeOrder = view.findViewById(R.id.orderButton)
+        placeOrder.setOnClickListener {
+            lifecycleScope.launch{
+                val cartOrder = cartRepo.getAllCartItems()
+                val order = OrdersEntity(
+                    orderNumber = Random().nextInt(100),
+                    orderName = billName.text.toString(),
+                    date = LocalDate.now(),
+                    time = LocalTime.now(),
+                    orders = CartList(cartOrder),
+                    price = mainVM.totalBasketPrice.value!!
+                )
+                orderRepo.insertOrder(order)
+            }
+        }
+
     }
 
     override fun onPause() {

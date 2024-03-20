@@ -11,6 +11,10 @@ import androidx.room.TypeConverters
 abstract class OrdersDatabase: RoomDatabase() {
     abstract fun ordersDAO(): OrdersDAO
 
+    fun ordersRepository(): OrdersRepository {
+        return OrdersRepository(ordersDAO())
+    }
+
     companion object {
         private const val DATABASE_NAME = "orders_database"
 

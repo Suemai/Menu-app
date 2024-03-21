@@ -31,6 +31,7 @@ import com.example.menu_app.database.orders.CartList
 import com.example.menu_app.database.orders.OrdersEntity
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.Dispatchers
@@ -93,12 +94,12 @@ class BasketFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId){
                     R.id.edit_basket -> {
-                        mainVM.setEditMode(enabled = true)
+                        mainVM.setEditMode(true)
                         requireActivity().invalidateOptionsMenu()
                         true
                     }
                     R.id.save_basket -> {
-                        mainVM.setEditMode(enabled = false)
+                        mainVM.setEditMode(false)
                         requireActivity().invalidateOptionsMenu()
                         true
                     }
@@ -235,19 +236,19 @@ class BasketFragment : Fragment() {
         }
 
         // Adding order to the order database
+        val orderNumber = Random().nextInt(100)
         placeOrder = view.findViewById(R.id.orderButton)
         placeOrder.setOnClickListener {
             lifecycleScope.launch{
-                val cartOrder = cartRepo.getAllCartItems()
-                val order = OrdersEntity(
-                    orderNumber = Random().nextInt(100),
-                    orderName = billName.text.toString(),
-                    date = LocalDate.now(),
-                    time = LocalTime.now(),
-                    orders = CartList(cartOrder),
-                    price = mainVM.totalBasketPrice.value!!
+                val cartEntities = basketAdapter.getCart()
+                val cartList = CartList(cartEntities)
+                mainVM.saveOrder(
+                    orderNumber,
+                    billName.text.toString(),
+                    LocalDate.now(),
+                    LocalTime.now(),
+                    cartList,
                 )
-                orderRepo.insertOrder(order)
             }
         }
 
@@ -256,7 +257,7 @@ class BasketFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         // Reset edit mode to false when fragment is paused
-        mainVM.setEditMode(enabled = false)
+        mainVM.setEditMode(false)
     }
 
     private fun nameDialog(){
@@ -273,5 +274,12 @@ class BasketFragment : Fragment() {
             .setNegativeButton("Cancel", null)
             .create()
             .show()
+    }
+
+    private fun orderMadeDialog(){
+        val dialog = Dialog(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Confirm order")
+            .setMessage("Your order has been placed")
     }
 }

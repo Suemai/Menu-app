@@ -18,6 +18,11 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/date_header.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dishes_list_item.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
@@ -100,7 +105,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -134,8 +139,8 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -429,7 +434,7 @@
       <workItem from="1710623705765" duration="2499000" />
       <workItem from="1710651580712" duration="31000" />
       <workItem from="1710651621216" duration="2461000" />
-      <workItem from="1710694587515" duration="34388000" />
+      <workItem from="1710694587515" duration="56318000" />
     </task>
     <servers />
   </component>

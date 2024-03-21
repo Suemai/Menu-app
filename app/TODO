@@ -2,7 +2,7 @@ To-Do List
 
 Features
 - Shopping basket                                       DONE
-- Order history
+- Order history                                         WORKING
 - Settings
 - Edit dishes                                           DONE
 - Set meals
@@ -24,11 +24,11 @@ Implementations to do
 
 - Order history
     -> Database of orders
-        -> Order number/ID
+        -> Order number/ID /bill name
             -> Order itself
         -> Date
     -> View all orders
-    -> View specific order
+    -> View specific order -> newest first
     -> Order deletion after a certain period
 
 - Settings
@@ -57,3 +57,17 @@ Implementations to do
         -> Print customer receipt?
     -> left swipe to delete dish from shopping basket               DONE
     -> Tabs to switch between database and set menu
+
+Todo this session
+- add logs to the adding of the order
+- refresh order history fragment/database
+- clear cart after order is placed
+- order button -> dialog to print receipt -> testing -> to order history
+- bill name won't be saved when switching fragments -> needs to be saved
+    -> same with the time, but atm, not really necessary
+- hide null in bill name if there isn't a bill name
+
+Other
+- Daily report
+    - Total price of day
+    - all orders of the day

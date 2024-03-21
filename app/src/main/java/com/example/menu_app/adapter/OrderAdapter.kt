@@ -45,10 +45,10 @@ class OrderAdapter(private val orders: List<OrdersEntity>, private val ordersRep
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val order = orderList[position]
+        val orderItem = orderList[position]
         when (holder){
             is HeaderViewHolder -> {
-                val header = order as LocalDate
+                val header = orderItem as LocalDate
                 holder.bind(header)
             }
             is OrderViewHolder -> {

@@ -6,28 +6,35 @@ import com.example.menu_app.database.basket.CartEntity
 import com.example.menu_app.database.basket.CartRepository
 import com.example.menu_app.database.dishes.DishRepository
 import com.example.menu_app.database.dishes.DishesEntity
+import com.example.menu_app.database.orders.CartList
+import com.example.menu_app.database.orders.OrdersEntity
 import com.example.menu_app.database.orders.OrdersRepository
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalTime
+import kotlin.random.Random
 
 class mainViewModel (private val cartRepo: CartRepository, private val dishRepo: DishRepository, private val ordersRepo: OrdersRepository) : ViewModel() {
 
+    //Define LiveData properties
     // For dish page
     private val dishData = MutableLiveData<DishesEntity>()
 
-    //Define LiveData properties
+    // For basket and main fragment
     val textItemCount: LiveData<Int> = MutableLiveData()
     val totalBasketPrice: LiveData<Double> = MutableLiveData()
 
     val filteredDishes: LiveData<List<DishesEntity>> = MutableLiveData()
     val isCartEmpty: LiveData<Boolean> = MutableLiveData()
 
+    // For all edit modes
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
 
-    private val _cartItems = MutableLiveData<List<CartEntity>>()
-    val cartItems: LiveData<List<CartEntity>> = _cartItems
+//    private val _cartItems = MutableLiveData<List<CartEntity>>()
+//    val cartItems: LiveData<List<CartEntity>> = _cartItems
 
-    // For when database has been changed
+    // For when the main database has been changed
     private val _changesMade = MutableLiveData<Boolean>()
     val changesMade: LiveData<Boolean> = _changesMade
 
@@ -36,6 +43,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
 
     private val _mainChanged = MutableLiveData<Boolean>()
     val mainChanged: LiveData<Boolean> = _mainChanged
+
+    // For when the order history database is changed
+    private val _ordersFragChanged = MutableLiveData<Boolean>()
+    val ordersFragChanged: LiveData<Boolean> = _ordersFragChanged
 
     // When the app is initialised
     init {
@@ -125,8 +136,8 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    fun setEditMode(enabled: Boolean) {
-        _isEditModeEnabled.value = enabled
+    fun setEditMode(mode: Boolean) {
+        _isEditModeEnabled.value = mode
     }
 
     fun updateIndividualTotalPrice() {
@@ -146,6 +157,9 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         when (fragment){
             "database" -> _databaseChanged.value = true
             "main" -> _mainChanged.value = true
+
+            // The bit for orders history
+            "orderHistory" -> _ordersFragChanged.value = false
         }
         if (_databaseChanged.value == true && _mainChanged.value == true){
             _changesMade.value = false
@@ -206,9 +220,23 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     }
 
 
-//    fun placeOrder(order: OrdersEntity){
-//        viewModelScope.launch {
-//            ordersRepo.insertOrder(order)
-//        }
-//    }
+    fun saveOrder(number:Int, billName: String, orderDate: LocalDate, orderTime: LocalTime, cart: CartList){
+        Log.d("mainViewModel", "saving order")
+        val totalPrice = totalBasketPrice.value ?: 0.0
+        viewModelScope.launch {
+            val order = OrdersEntity(
+                orderNumber = number,
+                orderName = billName,
+                date = orderDate,
+                time = orderTime,
+                orders = cart,
+                price = totalPrice
+            )
+            ordersRepo.insertOrder(order)
+            //cartRepo.clearCart()
+            _ordersFragChanged.value = true
+            Log.d("mainViewModel", "Order is $order")
+        }
+        Log.d("mainViewModel", "Order saved")
+    }
 }

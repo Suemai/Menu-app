@@ -60,8 +60,8 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
         notifyDataSetChanged()
     }
 
-    fun getCartItem(position: Int): CartEntity {
-        return cartEntities[position]
+    fun getCart(): MutableList<CartEntity> {
+        return cartEntities
     }
 
     inner class ViewHolder(view: View, mainVM: mainViewModel) : RecyclerView.ViewHolder(view) {

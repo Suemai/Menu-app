@@ -1,10 +1,12 @@
 package com.example.menu_app.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.adapter.OrderAdapter
@@ -13,7 +15,7 @@ import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
 
 
-class OrderRecordFragment : Fragment() {
+class OrderHistoryFragment : Fragment() {
 
     private lateinit var ordersRepo: OrdersRepository
     private lateinit var orderAdapter: OrderAdapter
@@ -31,6 +33,23 @@ class OrderRecordFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val database = (requireActivity().application as startup).ordersDatabase
         ordersRepo = OrdersRepository(database.ordersDAO())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[mainViewModel::class.java]
+
+        // Live data
+        viewModel.ordersFragChanged.observe(viewLifecycleOwner){ isChanged ->
+            if (isChanged){
+                Log.d("OrderHistoryFragment", "New orders found")
+                orderAdapter.notifyDataSetChanged()
+                viewModel.refreshDone("orderHistory")
+                Log.d("OrderHistoryFragment", "Order history updated")
+            }
+
+        }
     }
 
 

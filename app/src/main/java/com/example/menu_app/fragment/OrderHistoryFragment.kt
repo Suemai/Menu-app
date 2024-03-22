@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.adapter.OrderAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
+import kotlinx.coroutines.runBlocking
 
 
 class OrderHistoryFragment : Fragment() {
@@ -40,17 +42,28 @@ class OrderHistoryFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[mainViewModel::class.java]
 
+        // Initialise views
+        orderRecyclerView = view.findViewById(R.id.orders_rec_view)
+        val listOfOrders = runBlocking { ordersRepo.getAllOrders() }
+        orderAdapter = OrderAdapter(listOfOrders)
+
+        // Set up layout manager and adapter
+        val layoutManager = LinearLayoutManager(context)
+        orderRecyclerView.layoutManager = layoutManager
+        orderRecyclerView.adapter = orderAdapter
+
+        // Update the list in the adapter
+        orderAdapter.updateOrderList(listOfOrders)
+
         // Live data
         viewModel.ordersFragChanged.observe(viewLifecycleOwner){ isChanged ->
             if (isChanged){
                 Log.d("OrderHistoryFragment", "New orders found")
-                orderAdapter.notifyDataSetChanged()
+                orderAdapter.updateOrderList(listOfOrders)
                 viewModel.refreshDone("orderHistory")
                 Log.d("OrderHistoryFragment", "Order history updated")
             }
 
         }
     }
-
-
 }

@@ -46,7 +46,7 @@
 
     <fragment
             android:id="@+id/orderRecordFragment"
-            android:name="com.example.menu_app.fragment.OrderRecordFragment"
+            android:name="com.example.menu_app.fragment.OrderHistoryFragment"
             android:label="OrderRecordFragment"
             tools:layout="@layout/fragment_order_record">
         <action

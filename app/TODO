@@ -59,8 +59,6 @@ Implementations to do
     -> Tabs to switch between database and set menu
 
 Todo this session
-- add logs to the adding of the order
-- refresh order history fragment/database
 - clear cart after order is placed
 - order button -> dialog to print receipt -> testing -> to order history
 - bill name won't be saved when switching fragments -> needs to be saved
@@ -71,3 +69,4 @@ Other
 - Daily report
     - Total price of day
     - all orders of the day
+

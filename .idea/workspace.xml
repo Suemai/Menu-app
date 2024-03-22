@@ -170,6 +170,7 @@
     "Android App.Menu.app.executor": "Run",
     "Android App.app.executor": "Run",
     "ApkExportedModule": "Menu.app",
+    "PROJECT_TRUSTED_KEY": "true",
     "ResourceManagerPrefKey.ResourceType": "DRAWABLE",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -434,7 +435,7 @@
       <workItem from="1710623705765" duration="2499000" />
       <workItem from="1710651580712" duration="31000" />
       <workItem from="1710651621216" duration="2461000" />
-      <workItem from="1710694587515" duration="56318000" />
+      <workItem from="1710694587515" duration="68083000" />
     </task>
     <servers />
   </component>

@@ -19,6 +19,7 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -237,6 +238,8 @@ class BasketFragment : Fragment() {
 
         // Adding order to the order database
         val orderNumber = Random().nextInt(100)
+        billName = view.findViewById(R.id.bill_name_txt)
+
         placeOrder = view.findViewById(R.id.orderButton)
         placeOrder.setOnClickListener {
             lifecycleScope.launch{
@@ -250,6 +253,7 @@ class BasketFragment : Fragment() {
                     cartList,
                 )
             }
+            orderMadeDialog(orderNumber)
         }
 
     }
@@ -276,10 +280,18 @@ class BasketFragment : Fragment() {
             .show()
     }
 
-    private fun orderMadeDialog(){
+    private fun orderMadeDialog(orderNum: Int){
         val dialog = Dialog(requireContext())
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Confirm order")
-            .setMessage("Your order has been placed")
+            .setMessage("Order has been placed \n Order number: $orderNum")
+            .setPositiveButton("Print"){ _, _ ->
+                // Placeholder for printing
+                // For now it will redirect to main fragment
+                findNavController().popBackStack()
+            }
+            .setNeutralButton("Close"){ _, _ ->
+                dialog.dismiss()
+            }
     }
 }

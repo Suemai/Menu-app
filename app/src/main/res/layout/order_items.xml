@@ -22,14 +22,14 @@
             android:layout_toEndOf="@id/order_number"
             android:layout_marginEnd="5dp"/>
 
-    <TextView
-            android:id="@+id/order_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dd:mm:yyyy"
-            android:padding="5dp"
-            android:layout_toEndOf="@id/order_name"
-            android:layout_marginEnd="5dp"/>
+<!--    <TextView-->
+<!--            android:id="@+id/order_date"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="dd:mm:yyyy"-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_toEndOf="@id/order_name"-->
+<!--            android:layout_marginEnd="5dp"/>-->
 
     <TextView
             android:id="@+id/order_time"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="hh:mm"
             android:padding="5dp"
-            android:layout_toEndOf="@id/order_date"/>
+            android:layout_toEndOf="@id/order_name"/>
 
     <TextView
             android:id="@+id/order_price"

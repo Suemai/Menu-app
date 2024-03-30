@@ -31,9 +31,6 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
 
-//    private val _cartItems = MutableLiveData<List<CartEntity>>()
-//    val cartItems: LiveData<List<CartEntity>> = _cartItems
-
     // For when the main database has been changed
     private val _changesMade = MutableLiveData<Boolean>()
     val changesMade: LiveData<Boolean> = _changesMade
@@ -58,6 +55,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             (changesMade as MutableLiveData).value = false
             (databaseChanged as MutableLiveData).value = false
             (mainChanged as MutableLiveData).value = false
+            //getOrders()
         }
     }
 

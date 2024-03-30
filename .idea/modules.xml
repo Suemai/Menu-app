@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Menu.iml" filepath="$PROJECT_DIR$/.idea/modules/Menu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu-app.Menu.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Menu.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Menu.app.unitTest.iml" />
     </modules>
   </component>
 </project>

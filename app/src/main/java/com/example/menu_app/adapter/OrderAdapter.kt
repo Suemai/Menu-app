@@ -13,13 +13,14 @@ import java.time.format.DateTimeFormatter
 
 class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    //private var orderList: List<OrdersEntity> = listOf()
+    private val orderList:ArrayList<OrdersEntity?> = ArrayList()
     private val header = 0
     private val item = 1
 
     init {
         // Sort orders by date and time
         orders = orders.sortedWith(compareBy({ it.date }, { it.time }))
+        populateOrderList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,39 +29,44 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.date_header, parent, false)
                 HeaderViewHolder(view)
             }
-            else -> {
+            item -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.order_items, parent, false)
                 OrderViewHolder(view)
             }
+            else -> {
+                throw IllegalArgumentException("Invalid view type")
+            }
         }
+    }
+
+    fun updateOrderItems(newOrderItems: List<OrdersEntity>){
+        orders = newOrderItems
+        populateOrderList()
+        notifyDataSetChanged()
+    }
+
+    fun populateOrderList(){
+        orderList.clear()
+        if (orders.isEmpty())
+            return
+        orderList.add(null)
+        orderList.add(orders[0])
+        for (i in 1 until orders.size){
+            if (orders[i].date != orders[i-1].date){
+                orderList.add(null)
+            }
+            orderList.add(orders[i])
+        }
+
     }
 
     fun updateOrderList(newOrder: List<OrdersEntity>){
         orders = newOrder
         notifyDataSetChanged()
-//        // Group orders by date
-//        val groupedOrders = newOrder.groupBy { it.date }
-//
-//        // Convert to list of items with headers
-//        val sortedList = mutableListOf<Any>()
-//        groupedOrders.entries.forEach { (date, orders) ->
-//            sortedList.add(date)
-//            sortedList.addAll(orders)
-//        }
-//
-//        Log.d("OrderAdapter", "newOrder: $newOrder")
-//        Log.d("OrderAdapter", "groupedOrders: $groupedOrders")
-//        Log.d("OrderAdapter", "sortedList: $sortedList")
     }
 
     override fun getItemCount(): Int {
-        val size = orders.size
-        Log.d("OrderAdapter", "count: $size")
-        val count = getHeaderCount()
-        Log.d("OrderAdapter", "header count: $count")
-        val total = size + count
-        Log.d("OrderAdapter", "total: $total")
-        return orders.size //+ getHeaderCount()
+        return orders.size+getHeaderCount()
     }
 
     private fun getHeaderCount(): Int {
@@ -78,25 +84,25 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0) {
-            return header
+        return when (orderList[position]){
+            null -> header
+            else -> item
         }
-        if(orders[position].date != orders[position - 1].date){
-            return header
-        }
-        return item
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val orderItem = orders[position]
+
+        //Log.d("OrderAdapter", "Bind: Order: $orderItem")
         when (holder.itemViewType){
             header -> {
                 val headerHolder = holder as HeaderViewHolder
-                headerHolder.bind(orderItem.date)
+                headerHolder.bind(orderList[position + 1]!!.date)
+                Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
             }
             item -> {
                 val orderHolder = holder as OrderViewHolder
-                orderHolder.bind(orderItem)
+                orderHolder.bind(orderList[position]!!)
+                Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
             }
         }
     }

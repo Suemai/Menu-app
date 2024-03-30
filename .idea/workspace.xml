@@ -63,11 +63,6 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/test.xml">
-        <config>
-          <theme>@style/Theme.Menu_app</theme>
-        </config>
-      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/basket_menu.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
@@ -99,7 +94,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="" />
+    <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/date_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/date_header.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,11 +138,11 @@
       <list>
         <option value="Class" />
         <option value="navigationResourceFile" />
-        <option value="Kotlin Data Class" />
         <option value="Kotlin Object" />
         <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
@@ -187,7 +189,7 @@
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.35100117",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -204,7 +206,7 @@
       <recent name="C:\Users\B-P-b\Documents\Projects\App\Menu-app\Menu_app\app\src\main\assets" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.Menu-app.Menu.app">
+  <component name="RunManager" selected="Android App.app">
     <configuration name="Menu-app.Menu.app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Menu-app.Menu.app.main" />
       <option name="DEPLOY" value="true" />
@@ -435,12 +437,34 @@
       <workItem from="1710623705765" duration="2499000" />
       <workItem from="1710651580712" duration="31000" />
       <workItem from="1710651621216" duration="2461000" />
-      <workItem from="1710694587515" duration="68083000" />
+      <workItem from="1710694587515" duration="69285000" />
+      <workItem from="1711383388369" duration="13646000" />
+      <workItem from="1711508660913" duration="6318000" />
+      <workItem from="1711595336956" duration="53000" />
+      <workItem from="1711595402388" duration="824000" />
+      <workItem from="1711598741047" duration="31209000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

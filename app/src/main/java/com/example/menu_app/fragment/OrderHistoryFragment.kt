@@ -63,7 +63,6 @@ class OrderHistoryFragment : Fragment() {
                 viewModel.refreshDone("orderHistory")
                 Log.d("OrderHistoryFragment", "Order history updated")
             }
-
         }
     }
 }

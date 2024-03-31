@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +55,7 @@ class BasketFragment : Fragment() {
     private lateinit var timeReady: TextView
     private lateinit var estimatedTime: TextView
     private lateinit var billName: TextView
+    private lateinit var billNameLayout: LinearLayout
     private lateinit var addTime: Button
     private lateinit var setTime: Button
     private lateinit var setName: Button
@@ -231,6 +234,18 @@ class BasketFragment : Fragment() {
         }).attachToRecyclerView(basketRecyclerView)
 
         // Bill name setup
+        billNameLayout = view.findViewById(R.id.bill_name_layout)
+        billName = view.findViewById(R.id.bill_name_txt)
+        mainVM.billName.observe(viewLifecycleOwner) { name ->
+            Log.d("BasketFragment", "Name: $name")
+            if (name.isNullOrEmpty() || name == "name"){
+                billNameLayout.visibility = View.GONE
+            } else {
+                billNameLayout.visibility = View.VISIBLE
+                billName.text = name
+            }
+        }
+
         setName = view.findViewById(R.id.billNameButton)
         setName.setOnClickListener {
             nameDialog()
@@ -238,7 +253,6 @@ class BasketFragment : Fragment() {
 
         // Adding order to the order database
         val orderNumber = Random().nextInt(100)
-        billName = view.findViewById(R.id.bill_name_txt)
 
         placeOrder = view.findViewById(R.id.orderButton)
         placeOrder.setOnClickListener {
@@ -254,6 +268,9 @@ class BasketFragment : Fragment() {
                 )
             }
             orderMadeDialog(orderNumber)
+            mainVM.clearCart()
+            basketAdapter.clearCart()
+
         }
 
     }
@@ -268,12 +285,12 @@ class BasketFragment : Fragment() {
         val addName = EditText(requireContext())
         billName = requireView().findViewById(R.id.bill_name_txt)
         addName.hint = "Enter name here"
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle("Add name")
             .setView(addName)
             .setPositiveButton("Add"){ _, _ ->
                 val name = addName.text.toString()
-                billName.text = name
+                mainVM.setBillName(name)
             }
             .setNegativeButton("Cancel", null)
             .create()
@@ -281,17 +298,18 @@ class BasketFragment : Fragment() {
     }
 
     private fun orderMadeDialog(orderNum: Int){
-        val dialog = Dialog(requireContext())
-        MaterialAlertDialogBuilder(requireContext())
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle("Confirm order")
-            .setMessage("Order has been placed \n Order number: $orderNum")
+            .setMessage("Order has been placed \nOrder number: $orderNum")
             .setPositiveButton("Print"){ _, _ ->
                 // Placeholder for printing
                 // For now it will redirect to main fragment
                 findNavController().popBackStack()
             }
-            .setNeutralButton("Close"){ _, _ ->
+            .setNeutralButton("Close"){ dialog, _ ->
                 dialog.dismiss()
             }
+            .create()
+        dialog.show()
     }
 }

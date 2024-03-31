@@ -95,12 +95,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/app/TODO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/BasketAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/BasketAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/date_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/date_header.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_basket.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_basket.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,37 +164,38 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2TZnqoAsizLX2CtbX27mxsdh1VL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.Menu-app.Menu.app.executor": "Run",
-    "Android App.Menu.app.executor": "Run",
-    "Android App.app.executor": "Run",
-    "ApkExportedModule": "Menu.app",
-    "PROJECT_TRUSTED_KEY": "true",
-    "ResourceManagerPrefKey.ResourceType": "DRAWABLE",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Kotlin-rewrite",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/B-P-b/Documents/Projects/App/Menu-app",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.35100117",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.Menu-app.Menu.app.executor&quot;: &quot;Run&quot;,
+    &quot;Android App.Menu.app.executor&quot;: &quot;Run&quot;,
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;ApkExportedModule&quot;: &quot;Menu.app&quot;,
+    &quot;PROJECT_TRUSTED_KEY&quot;: &quot;true&quot;,
+    &quot;ResourceManagerPrefKey.ResourceType&quot;: &quot;DRAWABLE&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Kotlin-rewrite&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/B-P-b/Documents/Projects/App/Menu-app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.35100117&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\B-P-b\Documents\Projects\App\Menu-app\Menu_app" />
@@ -442,7 +445,9 @@
       <workItem from="1711508660913" duration="6318000" />
       <workItem from="1711595336956" duration="53000" />
       <workItem from="1711595402388" duration="824000" />
-      <workItem from="1711598741047" duration="31209000" />
+      <workItem from="1711598741047" duration="36156000" />
+      <workItem from="1711915577838" duration="14000" />
+      <workItem from="1711915598609" duration="2371000" />
     </task>
     <servers />
   </component>
@@ -465,6 +470,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

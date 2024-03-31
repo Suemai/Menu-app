@@ -124,7 +124,8 @@
             android:layout_alignBottom="@id/estimated_time_layout"
             android:gravity="center_vertical"
             android:layout_marginEnd="20dp"
-            android:id="@+id/bill_name_layout">
+            android:id="@+id/bill_name_layout"
+            android:visibility="gone">
 
         <TextView
                 android:layout_width="wrap_content"

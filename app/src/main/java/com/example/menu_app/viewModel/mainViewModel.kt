@@ -27,6 +27,8 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     val filteredDishes: LiveData<List<DishesEntity>> = MutableLiveData()
     val isCartEmpty: LiveData<Boolean> = MutableLiveData()
 
+    val billName: LiveData<String> = MutableLiveData()
+
     // For all edit modes
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
@@ -132,6 +134,19 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             updateItemCount()
             updateTotalBasketPrice()
         }
+    }
+
+    fun clearCart(){
+        viewModelScope.launch {
+            cartRepo.clearCart()
+            (isCartEmpty as MutableLiveData).value = true
+            updateCart()
+            setBillName("")
+        }
+    }
+
+    fun setBillName(name: String){
+        (billName as MutableLiveData).value = name
     }
 
     fun setEditMode(mode: Boolean) {

@@ -64,6 +64,11 @@ class BasketAdapter(private val cartRepo: CartRepository, private val mainVM: ma
         return cartEntities
     }
 
+    fun clearCart(){
+        cartEntities.clear()
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(view: View, mainVM: mainViewModel) : RecyclerView.ViewHolder(view) {
 
         private val editQuantity = view.findViewById<View>(R.id.add_reduce_dish)

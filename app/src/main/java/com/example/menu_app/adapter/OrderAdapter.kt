@@ -130,6 +130,12 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
             orderTime.text = order.time.format(
                 DateTimeFormatter.ofPattern("HH:mm"))
             orderPrice.text = String.format("£%.2f", order.price)
+
+            if (order.orderName == "name"|| order.orderName.isNullOrEmpty()){
+                orderName.visibility = View.GONE
+            } else {
+                orderName.visibility = View.VISIBLE
+            }
         }
     }
 }

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
+import com.example.menu_app.classes.HeaderItemDecoration
 import com.example.menu_app.database.orders.OrdersEntity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HeaderItemDecoration.StickyHeaderInterface {
 
     private val orderList:ArrayList<OrdersEntity?> = ArrayList()
     private val header = 0
@@ -39,13 +40,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
         }
     }
 
-    fun updateOrderItems(newOrderItems: List<OrdersEntity>){
-        orders = newOrderItems
-        populateOrderList()
-        notifyDataSetChanged()
-    }
-
-    fun populateOrderList(){
+    private fun populateOrderList(){
         orderList.clear()
         if (orders.isEmpty())
             return
@@ -66,21 +61,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int {
-        return orders.size+getHeaderCount()
-    }
-
-    private fun getHeaderCount(): Int {
-        if (orders.isEmpty()) {
-            return 0 // Return 0 if the list is empty
-        }
-
-        var count = 1
-        for (i in 1 until orders.size){
-            if (orders[i].date != orders[i-1].date){
-                count++
-            }
-        }
-        return count
+        return orderList.size
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -137,5 +118,26 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
                 orderName.visibility = View.VISIBLE
             }
         }
+    }
+
+    // StickyHeaderInterface implementation
+
+    override fun getHeaderPositionForItem(itemPosition: Int): Int {
+        var itemPos = itemPosition
+        while (itemPos >= 0) {
+            if (this.isHeader(itemPos)) {
+                return itemPos
+            }
+            itemPos -= 1
+        }
+        return 0
+    }
+
+    override fun getHeaderViewType(): Int {
+        return header
+    }
+
+    override fun isHeader(itemPosition: Int): Boolean {
+        return orderList[itemPosition] == null
     }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
 import com.example.menu_app.adapter.OrderAdapter
 import com.example.menu_app.application.startup
+import com.example.menu_app.classes.HeaderItemDecoration
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
 import kotlinx.coroutines.runBlocking
@@ -51,6 +52,7 @@ class OrderHistoryFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         orderRecyclerView.layoutManager = layoutManager
         orderRecyclerView.adapter = orderAdapter
+        orderRecyclerView.addItemDecoration(HeaderItemDecoration(orderAdapter))
 
         // Update the list in the adapter
         orderAdapter.updateOrderList(listOfOrders)

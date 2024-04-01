@@ -7,12 +7,15 @@
 
     <!-- List of dishes in the basket -->
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/order_page_recyclerView"
+            android:id="@+id/order_page_recView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_above="@id/order_page_totalPriceLayout"
-            android:layout_below="@id/order_page_time_layout"/>
+            android:layout_below="@id/order_page_time_layout"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"/>
 
     <!-- == Time made ============================================== -->
     <LinearLayout
@@ -48,9 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/order_page_totalPriceLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:gravity="center_horizontal">
+            android:layout_above="@id/print_buttons"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp">
 
         <TextView
                 android:id="@+id/order_page_totalPriceTextView"
@@ -70,4 +76,50 @@
                 android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@id/order_page_totalPriceTextView"/>
     </RelativeLayout>
+
+    <!-- Print buttons -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/print_buttons">
+
+        <Button
+                android:id="@+id/order_page_customer_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer Print"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                style="@style/Widget.Material3.Button"/>
+
+        <Button
+                android:id="@+id/order_page_cn_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese Print"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                style="@style/Widget.Material3.Button"/>
+
+        <Button
+                android:id="@+id/order_page_kitchen_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="Kitchen Print"
+                android:layout_marginStart="5dp"
+                style="@style/Widget.Material3.Button"/>
+
+    </LinearLayout>
 </RelativeLayout>

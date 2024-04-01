@@ -20,6 +20,9 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     // For dish page
     private val dishData = MutableLiveData<DishesEntity>()
 
+    //For order page
+    private val orderData = MutableLiveData<OrdersEntity>()
+
     // For basket and main fragment
     val textItemCount: LiveData<Int> = MutableLiveData()
     val totalBasketPrice: LiveData<Double> = MutableLiveData()
@@ -251,5 +254,14 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             Log.d("mainViewModel", "Order is $order")
         }
         Log.d("mainViewModel", "Order saved")
+    }
+
+    // For order page
+    fun setOrderData(order: OrdersEntity){
+        orderData.value = order
+    }
+
+    fun getOrderData(): LiveData<OrdersEntity> {
+        return orderData
     }
 }

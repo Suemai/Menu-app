@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter
 class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HeaderItemDecoration.StickyHeaderInterface {
 
     private val orderList:ArrayList<OrdersEntity?> = ArrayList()
+    private var onItemClickListener: ((Int) -> Unit)? = null
     private val header = 0
     private val item = 1
 
@@ -78,12 +79,12 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
             header -> {
                 val headerHolder = holder as HeaderViewHolder
                 headerHolder.bind(orderList[position + 1]!!.date)
-                Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
+                //Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
             }
             item -> {
                 val orderHolder = holder as OrderViewHolder
                 orderHolder.bind(orderList[position]!!)
-                Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
+                //Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
             }
         }
     }
@@ -103,6 +104,13 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
         //private val orderDate = itemView.findViewById<TextView>(R.id.order_date)
         private val orderTime = itemView.findViewById<TextView>(R.id.order_time)
         private val orderPrice = itemView.findViewById<TextView>(R.id.order_price)
+
+        init{
+            itemView.setOnClickListener {
+                Log.d("OrderAdapter", "Order clicked")
+                onItemClickListener?.invoke(adapterPosition)
+            }
+        }
 
         fun bind(order: OrdersEntity){
             orderNumber.text = order.orderNumber.toString()
@@ -140,4 +148,9 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
     override fun isHeader(itemPosition: Int): Boolean {
         return orderList[itemPosition] == null
     }
+
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        onItemClickListener = listener
+    }
+
 }

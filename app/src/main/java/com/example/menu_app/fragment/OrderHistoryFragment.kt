@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
@@ -65,6 +66,14 @@ class OrderHistoryFragment : Fragment() {
                 viewModel.refreshDone("orderHistory")
                 Log.d("OrderHistoryFragment", "Order history updated")
             }
+        }
+
+        // Set up click listener
+        orderAdapter.setOnItemClickListener { position ->
+            val selectedOrder = listOfOrders[position]
+            viewModel.setOrderData(selectedOrder)
+            val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment()
+            findNavController().navigate(toOrderPage)
         }
     }
 }

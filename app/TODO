@@ -59,11 +59,6 @@ Implementations to do
     -> Tabs to switch between database and set menu
 
 Todo this session
-- clear cart after order is placed                                              DONE
-- order button -> dialog to print receipt -> testing -> to order history        DONE
-- bill name won't be saved when switching fragments -> needs to be saved        DONE
-    -> same with the time, but atm, not really necessary                        DONE
-- hide null in bill name if there isn't a bill name                             DONE
 
 Other
 - Daily report

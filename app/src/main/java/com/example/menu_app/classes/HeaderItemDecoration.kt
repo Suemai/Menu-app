@@ -66,10 +66,6 @@ class HeaderItemDecoration(private var mListener: StickyHeaderInterface) : Recyc
         return childInContact
     }
 
-    /**
-     * Properly measures and layouts the top sticky header.
-     * @param parent ViewGroup: RecyclerView in this case.
-     */
     private fun fixLayoutSize(parent: ViewGroup, view: View) {
 
         // Specs for parent (RecyclerView)
@@ -87,33 +83,12 @@ class HeaderItemDecoration(private var mListener: StickyHeaderInterface) : Recyc
     }
 
     interface StickyHeaderInterface {
-
-        /**
-         * This method gets called by {@link HeaderItemDecoration} to fetch the position of the header item in the adapter
-         * that is used for (represents) item at specified position.
-         * @param itemPosition int. Adapter's position of the item for which to do the search of the position of the header item.
-         * @return int. Position of the header item in the adapter.
-         */
         fun getHeaderPositionForItem(itemPosition: Int): Int
 
-        /**
-         * This method gets called by {@link HeaderItemDecoration} to get the item viewType for the header
-         * @return int. Header viewType
-         */
         fun getHeaderViewType(): Int
 
-        /**
-         * This method gets called by {@link HeaderItemDecoration} to set up the header View.
-         * @param holder View. Header holder to set the data on.
-         * @param position int. Position of the header item in the adapter.
-         */
         fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
 
-        /**
-         * This method gets called by {@link HeaderItemDecoration} to verify whether the item represents a header.
-         * @param itemPosition int.
-         * @return true, if item at the specified adapter's position represents a header.
-         */
         fun isHeader(itemPosition: Int): Boolean
     }
 }

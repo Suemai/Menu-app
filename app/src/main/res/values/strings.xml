@@ -49,4 +49,6 @@
     <string name="name">name</string>
     <string name="time_ordered">Time ordered: &#160;</string>
     <string name="date">Date</string>
+    <string name="kitchen_print">Kitchen Print</string>
+    <string name="chinese_print">Chinese Print</string>
 </resources>

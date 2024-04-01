@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -84,6 +85,9 @@ class mainFragment : Fragment() {
         viewModel.viewModelScope.launch {
             dishAdapter.updateList(listOfDishes)
         }
+
+        // Title
+        (activity as AppCompatActivity).supportActionBar?.title = "Bo Country"
 
         // click listeners for dishes -> add dishes to cart
         dishAdapter.setOnItemClickListener { position ->

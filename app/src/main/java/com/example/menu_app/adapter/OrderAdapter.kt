@@ -72,6 +72,10 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
         }
     }
 
+    fun getOrderAt(position: Int): OrdersEntity {
+        return orderList[position]!!
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         //Log.d("OrderAdapter", "Bind: Order: $orderItem")

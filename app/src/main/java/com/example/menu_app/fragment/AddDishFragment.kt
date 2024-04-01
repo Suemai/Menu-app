@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.menu.R
@@ -28,6 +29,9 @@ class AddDishFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_dish, container, false)
+
+        // Title
+        (activity as AppCompatActivity).supportActionBar?.title = "Add New Dish"
 
         // Initialization
         newDishNumber = view.findViewById(R.id.new_dish_number)

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -63,6 +64,9 @@ class DatabaseFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(), 3)
         dishesRecyclerView.layoutManager = layoutManager
         dishesRecyclerView.adapter = dishAdapter
+
+        // Title
+        (activity as AppCompatActivity).supportActionBar?.title = "Database"
 
         // click listeners for dishes
         dishAdapter.setOnItemClickListener { position ->

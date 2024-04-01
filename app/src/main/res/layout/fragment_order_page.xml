@@ -94,21 +94,23 @@
                 android:id="@+id/order_page_customer_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer Print"
+                android:text="@string/customer_print"
                 android:textSize="15sp"
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="5dp"
+                android:padding="10dp"
                 style="@style/Widget.Material3.Button"/>
 
         <Button
                 android:id="@+id/order_page_cn_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chinese Print"
+                android:text="@string/chinese_print"
                 android:textSize="15sp"
                 android:layout_weight="1"
                 android:layout_marginEnd="5dp"
+                android:padding="10dp"
                 style="@style/Widget.Material3.Button"/>
 
         <Button
@@ -117,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
-                android:text="Kitchen Print"
+                android:padding="10dp"
+                android:text="@string/kitchen_print"
                 android:layout_marginStart="5dp"
                 style="@style/Widget.Material3.Button"/>
 

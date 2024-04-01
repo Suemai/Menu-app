@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,9 +69,12 @@ class OrderHistoryFragment : Fragment() {
             }
         }
 
+        // Title
+        (activity as AppCompatActivity).supportActionBar?.title = "Order History"
+
         // Set up click listener
         orderAdapter.setOnItemClickListener { position ->
-            val selectedOrder = listOfOrders[position]
+            val selectedOrder = orderAdapter.getOrderAt(position)
             viewModel.setOrderData(selectedOrder)
             val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment()
             findNavController().navigate(toOrderPage)

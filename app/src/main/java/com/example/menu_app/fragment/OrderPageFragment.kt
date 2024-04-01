@@ -18,6 +18,7 @@ import com.example.menu_app.adapter.OrderPageAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
+import java.time.format.DateTimeFormatter
 
 class OrderPageFragment : Fragment() {
 
@@ -75,7 +76,10 @@ class OrderPageFragment : Fragment() {
         orderTime = view.findViewById(R.id.order_page_time)
         orderTotal = view.findViewById(R.id.order_page_total_basket_price)
 
-        orderTime.text = orderData.time.toString()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val formattedTime = orderData.time.format(formatter)
+
+        orderTime.text = formattedTime
         orderTotal.text = String.format("£%.2f", orderData.price)
 
         // Buttons setup

@@ -54,7 +54,7 @@ class OrderHistoryFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         orderRecyclerView.layoutManager = layoutManager
         orderRecyclerView.adapter = orderAdapter
-        orderRecyclerView.addItemDecoration(HeaderItemDecoration(orderAdapter))
+        orderRecyclerView.addItemDecoration(HeaderItemDecoration(orderAdapter, orderRecyclerView))
 
         // Update the list in the adapter
         orderAdapter.updateOrderList(listOfOrders)

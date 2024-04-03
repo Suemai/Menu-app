@@ -1,14 +1,32 @@
 package com.example.menu_app.classes
 
 import android.graphics.Canvas
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 
-class HeaderItemDecoration(private var mListener: StickyHeaderInterface) : RecyclerView.ItemDecoration() {
+class HeaderItemDecoration(private var mListener: StickyHeaderInterface, recyclerView: RecyclerView) : RecyclerView.ItemDecoration() {
 
     private var mStickyHeaderHeight : Int = 0
     private var mHolder: RecyclerView.ViewHolder? = null
+
+    init {
+        recyclerView.addOnItemTouchListener(object: OnItemTouchListener{
+            override fun onInterceptTouchEvent(recyclerView: RecyclerView, motionEvent: MotionEvent): Boolean {
+                return motionEvent.y <= mStickyHeaderHeight
+            }
+
+            override fun onTouchEvent(recyclerView: RecyclerView, motionEvent: MotionEvent) {
+                // Do nothing
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+                // Do nothing
+            }
+        })
+    }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(c, parent, state)

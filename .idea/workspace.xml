@@ -33,6 +33,11 @@
           <theme>@style/Theme.Menu_app</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_daily_total.xml">
+        <config>
+          <theme>@style/Theme.Menu_app</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_database.xml">
         <config>
           <theme>@style/Theme.Menu_app</theme>
@@ -95,14 +100,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/DailyTotalFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_daily_total.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/AddDishFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/AddDishFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/classes/HeaderItemDecoration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/classes/HeaderItemDecoration.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/mainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/mainFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order_page.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -498,7 +500,7 @@
       <workItem from="1711595402388" duration="824000" />
       <workItem from="1711598741047" duration="36156000" />
       <workItem from="1711915577838" duration="14000" />
-      <workItem from="1711915598609" duration="22001000" />
+      <workItem from="1711915598609" duration="25693000" />
     </task>
     <task id="LOCAL-00001" summary="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
       <option name="closed" value="true" />

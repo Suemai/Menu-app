@@ -10,6 +10,7 @@ import com.example.menu.R
 import com.example.menu_app.classes.HeaderItemDecoration
 import com.example.menu_app.database.orders.OrdersEntity
 import java.time.LocalDate
+import java.time.MonthDay
 import java.time.format.DateTimeFormatter
 
 class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HeaderItemDecoration.StickyHeaderInterface {
@@ -58,6 +59,12 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
 
     fun updateOrderList(newOrder: List<OrdersEntity>){
         orders = newOrder
+        notifyDataSetChanged()
+    }
+
+    fun updateOrderListForDay(ordersForDay: List<OrdersEntity>, day: LocalDate){
+        orders = ordersForDay.filter { it.date == day}
+        populateOrderList()
         notifyDataSetChanged()
     }
 

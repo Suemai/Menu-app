@@ -27,6 +27,12 @@
                 android:id="@+id/orderRecordFragment"/>
 
         <item
+                android:title="Daily Total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dailyTotalFragment"/>
+
+        <item
                 android:title="Settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

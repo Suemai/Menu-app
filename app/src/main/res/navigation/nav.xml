@@ -58,4 +58,13 @@
             android:name="com.example.menu_app.fragment.OrderPageFragment"
             android:label="OrderPageFragment"
             tools:layout="@layout/fragment_order_page"/>
+    <fragment
+            android:id="@+id/dailyTotalFragment2"
+            android:name="com.example.menu_app.fragment.DailyTotalFragment"
+            android:label="fragment_daily_total"
+            tools:layout="@layout/fragment_daily_total">
+        <action
+                android:id="@+id/action_dailyTotalFragment2_to_orderPageFragment"
+                app:destination="@id/orderPageFragment"/>
+    </fragment>
 </navigation>

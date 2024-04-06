@@ -32,6 +32,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="dailyTotalFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="114" />
+                            <option name="y" value="532" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_dailyTotalFragment2_to_orderPageFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="databaseFragment">
                     <value>
                       <LayoutPositions>
@@ -111,6 +132,15 @@
                             <option name="x" value="-430" />
                             <option name="y" value="583" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_orderRecordFragment_to_orderPageFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.MonthDay
 import java.time.format.DateTimeFormatter
 
-class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HeaderItemDecoration.StickyHeaderInterface {
+class OrderAdapter(private var orders: List<OrdersEntity>, private val showHeaders: Boolean = true) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), HeaderItemDecoration.StickyHeaderInterface {
 
     private val orderList:ArrayList<OrdersEntity?> = ArrayList()
     private var onItemClickListener: ((Int) -> Unit)? = null
@@ -29,8 +29,13 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType){
             header -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.date_header, parent, false)
-                HeaderViewHolder(view)
+                if(showHeaders==true){
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.date_header, parent, false)
+                    HeaderViewHolder(view)
+                } else {
+                    EmptyViewHolder(View(parent.context))
+                }
+
             }
             item -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.order_items, parent, false)
@@ -88,14 +93,18 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
         //Log.d("OrderAdapter", "Bind: Order: $orderItem")
         when (holder.itemViewType){
             header -> {
-                val headerHolder = holder as HeaderViewHolder
-                headerHolder.bind(orderList[position + 1]!!.date)
-                //Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
+                if(holder is HeaderViewHolder){
+                    holder.bind(orderList[position + 1]!!.date)
+                    Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
+                }
+                else if (holder is EmptyViewHolder) {
+                    Log.d("OrderAdapter", "Bind: It's an empty header aka no header")
+                }
             }
             item -> {
                 val orderHolder = holder as OrderViewHolder
                 orderHolder.bind(orderList[position]!!)
-                //Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
+                Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
             }
         }
     }
@@ -138,6 +147,9 @@ class OrderAdapter(private var orders: List<OrdersEntity>) : RecyclerView.Adapte
             }
         }
     }
+
+    // An empty viewholder for the header for Daily Total Fragment
+    inner class EmptyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     // StickyHeaderInterface implementation
 

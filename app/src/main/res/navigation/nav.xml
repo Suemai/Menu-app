@@ -59,7 +59,7 @@
             android:label="OrderPageFragment"
             tools:layout="@layout/fragment_order_page"/>
     <fragment
-            android:id="@+id/dailyTotalFragment2"
+            android:id="@+id/dailyTotalFragment"
             android:name="com.example.menu_app.fragment.DailyTotalFragment"
             android:label="fragment_daily_total"
             tools:layout="@layout/fragment_daily_total">

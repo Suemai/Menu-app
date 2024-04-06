@@ -46,8 +46,8 @@ class DailyTotalFragment : Fragment() {
         // Initialise views
         orderRecView = view.findViewById(R.id.daily_total_recView)
         val listOfOrders = runBlocking { ordersRepo.getAllOrders() }
-        val dailyOrders = listOfOrders.filter { it.date == today }
-        orderAdapter = OrderAdapter(dailyOrders)
+        var dailyOrders = listOfOrders.filter { it.date == today }
+        orderAdapter = OrderAdapter(dailyOrders, showHeaders = false)
 
         // Set up layout manager and adapter
         val layoutManager = LinearLayoutManager(context)
@@ -61,7 +61,7 @@ class DailyTotalFragment : Fragment() {
         viewModel.ordersFragChanged.observe(viewLifecycleOwner){ isChanged ->
             if (isChanged){
                 Log.d("OrderHistoryFragment", "New orders found")
-                val dailyOrders = listOfOrders.filter { it.date == today }
+                dailyOrders = listOfOrders.filter { it.date == today }
                 orderAdapter.updateOrderListForDay(dailyOrders, today)
                 viewModel.refreshDone("orderHistory")
                 Log.d("OrderHistoryFragment", "Order history updated")
@@ -75,7 +75,7 @@ class DailyTotalFragment : Fragment() {
         orderAdapter.setOnItemClickListener { position ->
             val selectedOrder = orderAdapter.getOrderAt(position)
             viewModel.setOrderData(selectedOrder)
-            val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment()
+            val toOrderPage = DailyTotalFragmentDirections.actionDailyTotalFragment2ToOrderPageFragment()
             findNavController().navigate(toOrderPage)
         }
         return view

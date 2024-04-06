@@ -59,6 +59,12 @@ Implementations to do
     -> Tabs to switch between database and set menu
 
 Todo this session
+- no header in the daily total                                      DONE
+- daily total logic
+    -> total price
+- edit version of the orders page
+    -> remember to change the map nav
+- start the database for the set meals
 
 Other
 - Daily report

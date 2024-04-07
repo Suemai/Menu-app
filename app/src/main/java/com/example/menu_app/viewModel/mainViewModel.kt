@@ -50,6 +50,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     private val _ordersFragChanged = MutableLiveData<Boolean>()
     val ordersFragChanged: LiveData<Boolean> = _ordersFragChanged
 
+    // For daily total
+    private val _dailyTotal = MutableLiveData<Double>()
+    val dailyTotal: LiveData<Double> = _dailyTotal
+
     // When the app is initialised
     init {
         //Immediately clears the cart when app is opened
@@ -264,4 +268,14 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     fun getOrderData(): LiveData<OrdersEntity> {
         return orderData
     }
+
+    // For daily total
+    fun dailyTotal(selectedDate: LocalDate){
+        viewModelScope.launch {
+            val orders = ordersRepo.getAllOrders()
+            val dailyTotal = orders.filter { it.date == selectedDate }.sumOf { it.price }
+            _dailyTotal.value = dailyTotal
+        }
+    }
+
 }

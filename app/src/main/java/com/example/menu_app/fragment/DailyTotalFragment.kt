@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,6 +27,8 @@ class DailyTotalFragment : Fragment() {
     private lateinit var orderAdapter: OrderAdapter
     private lateinit var orderRecView: RecyclerView
     private lateinit var viewModel: mainViewModel
+
+    private lateinit var dailyTotal: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,7 @@ class DailyTotalFragment : Fragment() {
         val listOfOrders = runBlocking { ordersRepo.getAllOrders() }
         var dailyOrders = listOfOrders.filter { it.date == today }
         orderAdapter = OrderAdapter(dailyOrders, showHeaders = false)
+        viewModel.dailyTotal(today)
 
         // Set up layout manager and adapter
         val layoutManager = LinearLayoutManager(context)
@@ -56,6 +60,8 @@ class DailyTotalFragment : Fragment() {
 
         // Update the list in the adapter
         orderAdapter.updateOrderList(listOfOrders)
+
+        // Textview
 
         // Live data
         viewModel.ordersFragChanged.observe(viewLifecycleOwner){ isChanged ->
@@ -66,6 +72,11 @@ class DailyTotalFragment : Fragment() {
                 viewModel.refreshDone("orderHistory")
                 Log.d("OrderHistoryFragment", "Order history updated")
             }
+        }
+
+        viewModel.dailyTotal.observe(viewLifecycleOwner){ dailyTotal ->
+            view.findViewById<TextView>(R.id.daily_total_price).text = dailyTotal.toString()
+            Log.d("DailyTotalFragment", "Daily total: $dailyTotal")
         }
 
         // Title

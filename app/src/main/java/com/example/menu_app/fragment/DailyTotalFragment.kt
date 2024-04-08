@@ -28,9 +28,6 @@ class DailyTotalFragment : Fragment() {
     private lateinit var orderRecView: RecyclerView
     private lateinit var viewModel: mainViewModel
 
-    private lateinit var dailyTotal: TextView
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val database = (requireActivity().application as startup).ordersDatabase
@@ -61,8 +58,6 @@ class DailyTotalFragment : Fragment() {
         // Update the list in the adapter
         orderAdapter.updateOrderList(listOfOrders)
 
-        // Textview
-
         // Live data
         viewModel.ordersFragChanged.observe(viewLifecycleOwner){ isChanged ->
             if (isChanged){
@@ -75,7 +70,7 @@ class DailyTotalFragment : Fragment() {
         }
 
         viewModel.dailyTotal.observe(viewLifecycleOwner){ dailyTotal ->
-            view.findViewById<TextView>(R.id.daily_total_price).text = dailyTotal.toString()
+            view.findViewById<TextView>(R.id.daily_total_price).text = String.format("£%.2f", dailyTotal)
             Log.d("DailyTotalFragment", "Daily total: $dailyTotal")
         }
 
@@ -86,7 +81,7 @@ class DailyTotalFragment : Fragment() {
         orderAdapter.setOnItemClickListener { position ->
             val selectedOrder = orderAdapter.getOrderAt(position)
             viewModel.setOrderData(selectedOrder)
-            val toOrderPage = DailyTotalFragmentDirections.actionDailyTotalFragment2ToOrderPageFragment()
+            val toOrderPage = DailyTotalFragmentDirections.actionDailyTotalFragment2ToOrderPageFragment("daily")
             findNavController().navigate(toOrderPage)
         }
         return view

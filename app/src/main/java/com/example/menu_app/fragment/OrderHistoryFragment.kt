@@ -76,7 +76,7 @@ class OrderHistoryFragment : Fragment() {
         orderAdapter.setOnItemClickListener { position ->
             val selectedOrder = orderAdapter.getOrderAt(position)
             viewModel.setOrderData(selectedOrder)
-            val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment()
+            val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment("history")
             findNavController().navigate(toOrderPage)
         }
     }

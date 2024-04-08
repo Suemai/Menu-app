@@ -1,16 +1,21 @@
 package com.example.menu_app.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
@@ -26,6 +31,7 @@ class OrderPageFragment : Fragment() {
     private lateinit var orderAdapter: OrderPageAdapter
     private lateinit var orderRepo: OrdersRepository
     private lateinit var viewModel: mainViewModel
+    private lateinit var sourceFragment: String
 
     private lateinit var orderTime: TextView
     private lateinit var orderTotal: TextView
@@ -41,6 +47,11 @@ class OrderPageFragment : Fragment() {
 
         val database = (requireActivity().application as startup).ordersDatabase
         orderRepo = OrdersRepository(database.ordersDAO())
+
+        // determines mode of the fragment
+        arguments?.let {
+            sourceFragment = it.getString("source") ?: ""
+        }
     }
 
     override fun onCreateView(
@@ -53,6 +64,43 @@ class OrderPageFragment : Fragment() {
         // Get order data
         val orderData = viewModel.getOrderData().value
         Log.d("OrderPageFragment", "Order data: $orderData")
+
+        if (sourceFragment == "daily"){
+            val menuHost: MenuHost = requireActivity()
+            menuHost.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.basket_menu, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId){
+                        R.id.edit_basket -> {
+                            viewModel.clearCart()
+                            if (orderData != null) {
+                                viewModel.setOrderData(orderData)
+                            }
+                            val nav = OrderPageFragmentDirections.actionOrderPageFragmentToBasketFragment("daily")
+                            findNavController().navigate(nav)
+                            viewModel.setEditMode(true)
+                            Log.d("OrderPageFragment", "Edit mode enabled")
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                override fun onPrepareMenu(menu: Menu) {
+                    val editButton = menu.findItem(R.id.edit_basket)
+                    val saveButton = menu.findItem(R.id.save_basket)
+
+                    editButton.isVisible = true
+                    saveButton.isVisible = false
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }
+
+        // Default edit colour black, so changed to white
+        val edit = ContextCompat.getDrawable(requireContext(), R.drawable.edit)
+        DrawableCompat.setTint(edit!!, Color.WHITE)
 
         // Set up the layout manager and adapter
         orderRecyclerView = view.findViewById(R.id.order_page_recView)
@@ -99,7 +147,6 @@ class OrderPageFragment : Fragment() {
         chinesePrint.setOnClickListener {
             Toast.makeText(requireContext(), "Printing Chinese receipt", Toast.LENGTH_SHORT).show()
         }
-
 
         return view
     }

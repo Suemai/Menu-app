@@ -52,10 +52,13 @@ class BasketFragment : Fragment() {
     private lateinit var basketRecyclerView: RecyclerView
     private lateinit var basketAdapter: BasketAdapter
     private lateinit var mainVM: mainViewModel
+    private lateinit var sourceFragment: String
+
     private lateinit var timeReady: TextView
     private lateinit var estimatedTime: TextView
     private lateinit var billName: TextView
     private lateinit var billNameLayout: LinearLayout
+
     private lateinit var addTime: Button
     private lateinit var setTime: Button
     private lateinit var setName: Button
@@ -70,6 +73,10 @@ class BasketFragment : Fragment() {
 
         val orderDb = (requireActivity().application as startup).ordersDatabase.ordersDAO()
         orderRepo = OrdersRepository(orderDb)
+
+        arguments?.let {
+            sourceFragment = it.getString("source") ?: ""
+        }
     }
 
     override fun onCreateView(
@@ -259,18 +266,40 @@ class BasketFragment : Fragment() {
             lifecycleScope.launch{
                 val cartEntities = basketAdapter.getCart()
                 val cartList = CartList(cartEntities)
-                mainVM.saveOrder(
-                    orderNumber,
-                    billName.text.toString(),
-                    LocalDate.now(),
-                    LocalTime.now(),
-                    cartList,
-                )
+                if (sourceFragment == "daily"){
+                    mainVM.saveOrder(
+                        mainVM.getOrderNumber(),
+                        billName.text.toString(),
+                        mainVM.getDate(),
+                        mainVM.getTime(),
+                        cartList)
+
+                } else {
+                    mainVM.saveOrder(
+                        orderNumber,
+                        billName.text.toString(),
+                        LocalDate.now(),
+                        LocalTime.now(),
+                        cartList)
+                }
             }
             orderMadeDialog(orderNumber)
             mainVM.clearCart()
             basketAdapter.clearCart()
 
+        }
+
+        // If editing an already made order
+        if (mainVM.isEditModeEnabled.value == true && mainVM.getOrderData().value != null){
+            val orderData = mainVM.getOrderData().value
+            if (orderData != null){
+                val cartList = orderData.orders
+                val cartEntities = cartList.orders
+                basketAdapter.setCartItems(cartEntities.toMutableList())
+                mainVM.setBillName(orderData.orderName.toString())
+                mainVM.updateCart()
+                mainVM.setEditMode(false)
+            }
         }
 
     }
@@ -303,8 +332,13 @@ class BasketFragment : Fragment() {
             .setMessage("Order has been placed \nOrder number: $orderNum")
             .setPositiveButton("Print"){ _, _ ->
                 // Placeholder for printing
-                // For now it will redirect to main fragment
-                findNavController().popBackStack()
+                // If it's from a pre-existing order
+                if(sourceFragment == "daily"){
+                    findNavController().popBackStack(R.id.dailyTotalFragment, false)
+                } else {
+                    // For now, it will redirect to main fragment
+                    findNavController().popBackStack()
+                }
             }
             .setNeutralButton("Close"){ dialog, _ ->
                 dialog.dismiss()

@@ -100,16 +100,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/app/TODO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/DailyTotalFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/DailyTotalFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderHistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPage_withEditsFragment.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[HYFDU18A13002563]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -142,9 +150,9 @@
         <option value="navigationResourceFile" />
         <option value="Kotlin Object" />
         <option value="resourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -267,7 +275,7 @@
   </component>
   <component name="RunManager" selected="Android App.Menu-app.Menu.app">
     <configuration name="Menu-app.Menu.app" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="Menu-app.Menu.app.main~1" />
+      <module name="Menu-app.Menu.app.main" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -518,7 +526,14 @@
       <workItem from="1712271318447" duration="46000" />
       <workItem from="1712271366818" duration="1609000" />
       <workItem from="1712287411811" duration="3674000" />
-      <workItem from="1712336416443" duration="8320000" />
+      <workItem from="1712336416443" duration="11067000" />
+      <workItem from="1712603301685" duration="20000" />
+      <workItem from="1712603329997" duration="21000" />
+      <workItem from="1712603359830" duration="263000" />
+      <workItem from="1712603632974" duration="400000" />
+      <workItem from="1712604040206" duration="1484000" />
+      <workItem from="1712605561189" duration="227000" />
+      <workItem from="1712605797062" duration="7730000" />
     </task>
     <task id="LOCAL-00001" summary="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
       <option name="closed" value="true" />

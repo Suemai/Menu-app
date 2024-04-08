@@ -51,13 +51,28 @@
             tools:layout="@layout/fragment_order_record">
         <action
                 android:id="@+id/action_orderRecordFragment_to_orderPageFragment"
-                app:destination="@id/orderPageFragment"/>
+                app:destination="@id/orderPageFragment">
+
+            <argument
+                    android:name="source"
+                    app:argType="string"/>
+        </action>
+
     </fragment>
     <fragment
             android:id="@+id/orderPageFragment"
             android:name="com.example.menu_app.fragment.OrderPageFragment"
             android:label="OrderPageFragment"
-            tools:layout="@layout/fragment_order_page"/>
+            tools:layout="@layout/fragment_order_page">
+        <action
+                android:id="@+id/action_orderPageFragment_to_basketFragment"
+                app:destination="@id/basketFragment">
+                <argument
+                        android:name="source"
+                        app:argType="string"/>
+        </action>
+
+    </fragment>
     <fragment
             android:id="@+id/dailyTotalFragment"
             android:name="com.example.menu_app.fragment.DailyTotalFragment"
@@ -65,6 +80,11 @@
             tools:layout="@layout/fragment_daily_total">
         <action
                 android:id="@+id/action_dailyTotalFragment2_to_orderPageFragment"
-                app:destination="@id/orderPageFragment"/>
+                app:destination="@id/orderPageFragment">
+
+            <argument
+                    android:name="source"
+                    app:argType="string"/>
+        </action>
     </fragment>
 </navigation>

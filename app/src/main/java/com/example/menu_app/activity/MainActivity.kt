@@ -43,7 +43,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val topLevelFragments = setOf(
             R.id.mainFragment,
-            R.id.databaseFragment
+            R.id.databaseFragment,
+            R.id.orderRecordFragment,
+            R.id.dailyTotalFragment
         )
 
         //appBarConfiguration = AppBarConfiguration(NavController.graph, drawerLayout)
@@ -65,6 +67,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.databaseFragment -> {
                 navController.navigate(R.id.databaseFragment)
+            }
+            R.id.orderRecordFragment -> {
+                navController.navigate(R.id.orderRecordFragment)
+            }
+            R.id.dailyTotalFragment -> {
+                navController.navigate(R.id.dailyTotalFragment)
             }
         }
         drawerLayout.closeDrawers()

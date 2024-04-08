@@ -129,11 +129,13 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         Log.d("mainViewModel", "updateItemCount: $totalItems")
         (textItemCount as MutableLiveData).value = totalItems
         isCartEmpty()
+        //Log.d("mainViewModel", "updateItemCount: $totalItems")
     }
 
     private suspend fun updateTotalBasketPrice() {
         val totalPrice = cartRepo.getTotalPrice()
         (totalBasketPrice as MutableLiveData).value = totalPrice
+        //Log.d("mainViewModel", "updateTotalBasketPrice: $totalPrice")
     }
 
     fun updateCart(){
@@ -185,6 +187,18 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             _changesMade.value = false
             Log.d("mainViewModel", "Refresh done: changesMade set to false")
         }
+    }
+
+    fun getOrderNumber(): Int {
+        return orderData.value!!.orderNumber
+    }
+
+    fun getTime(): LocalTime {
+        return orderData.value!!.time
+    }
+
+    fun getDate(): LocalDate {
+        return orderData.value!!.date
     }
 
     // Generally for the dish page //////////////////////////////////////////

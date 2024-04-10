@@ -16,7 +16,7 @@ data class OrdersEntity (
     val orderNumber: Int,
 
     @ColumnInfo(name = "name")
-    val orderName: String?,
+    var orderName: String?,
 
     @ColumnInfo(name="date")
     val date: LocalDate,
@@ -25,10 +25,10 @@ data class OrdersEntity (
     val time: LocalTime,
 
     @ColumnInfo(name="order")
-    val orders: CartList,
+    var orders: CartList,
 
     @ColumnInfo(name = "price")
-    val price: Double
+    var price: Double
 )
 
 data class CartList(

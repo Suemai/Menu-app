@@ -105,8 +105,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             cartRepo.updateCartItem(existingItem)
         }
         (isCartEmpty as MutableLiveData).value = false
-        updateItemCount()
-        updateTotalBasketPrice()
+        updateCart()
     }
 
     private suspend fun isCartEmpty(){
@@ -154,6 +153,17 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
+    fun reloadCart(orders: OrdersEntity){
+        viewModelScope.launch {
+            val cart = orders.orders
+            cart.orders.forEach {
+                cartRepo.insertCartItem(it)
+            }
+            updateCart()
+            setBillName(orders.orderName.toString())
+        }
+    }
+
     fun setBillName(name: String){
         (billName as MutableLiveData).value = name
     }
@@ -189,18 +199,6 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         }
     }
 
-    fun getOrderNumber(): Int {
-        return orderData.value!!.orderNumber
-    }
-
-    fun getTime(): LocalTime {
-        return orderData.value!!.time
-    }
-
-    fun getDate(): LocalDate {
-        return orderData.value!!.date
-    }
-
     // Generally for the dish page //////////////////////////////////////////
     fun setDishesData(dishes: DishesEntity){
         dishData.value = dishes
@@ -208,6 +206,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
 
     fun getDishesData(): LiveData<DishesEntity> {
         return dishData
+    }
+
+    private fun getOrderNumber(): Int {
+        return orderData.value!!.orderNumber
     }
 
     suspend fun saveChanges(
@@ -272,6 +274,20 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             Log.d("mainViewModel", "Order is $order")
         }
         Log.d("mainViewModel", "Order saved")
+    }
+
+    fun updateOrder(billName: String, cart: CartList){
+        viewModelScope.launch {
+            val existingOrder = ordersRepo.getOrderByNumber(getOrderNumber())
+            existingOrder?.apply {
+                orderName = billName
+                orders = cart
+                price = totalBasketPrice.value!!
+            }
+            existingOrder?.let { ordersRepo.updateOrder(it) }
+            Log.d("mainViewModel", "existing order: $existingOrder")
+            _ordersFragChanged.value = true
+        }
     }
 
     // For order page

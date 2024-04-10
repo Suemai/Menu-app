@@ -8,6 +8,9 @@ import com.example.menu.R
 import com.example.menu_app.database.basket.CartEntity
 import com.example.menu_app.database.orders.CartList
 import com.example.menu_app.database.orders.OrdersRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OrderPageAdapter(private val cartList: List<CartEntity>): RecyclerView.Adapter<OrderPageAdapter.ViewHolder>(){
 

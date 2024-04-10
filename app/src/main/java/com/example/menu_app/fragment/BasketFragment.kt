@@ -266,13 +266,16 @@ class BasketFragment : Fragment() {
             lifecycleScope.launch{
                 val cartEntities = basketAdapter.getCart()
                 val cartList = CartList(cartEntities)
+                Log.d("BasketFragment", "CartList")
                 if (sourceFragment == "daily"){
-                    mainVM.saveOrder(
-                        mainVM.getOrderNumber(),
-                        billName.text.toString(),
-                        mainVM.getDate(),
-                        mainVM.getTime(),
-                        cartList)
+                    val bill = billName.text.toString()
+                    mainVM.updateOrder(bill, cartList)
+//                    mainVM.saveOrder(
+//                        mainVM.getOrderNumber(),
+//                        billName.text.toString(),
+//                        mainVM.getDate(),
+//                        mainVM.getTime(),
+//                        cartList)
 
                 } else {
                     mainVM.saveOrder(
@@ -295,13 +298,11 @@ class BasketFragment : Fragment() {
             if (orderData != null){
                 val cartList = orderData.orders
                 val cartEntities = cartList.orders
+                mainVM.reloadCart(orderData)
                 basketAdapter.setCartItems(cartEntities.toMutableList())
-                mainVM.setBillName(orderData.orderName.toString())
-                mainVM.updateCart()
                 mainVM.setEditMode(false)
             }
         }
-
     }
 
     override fun onPause() {

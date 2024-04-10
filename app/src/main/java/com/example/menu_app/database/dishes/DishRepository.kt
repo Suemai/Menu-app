@@ -25,8 +25,4 @@ class DishRepository(private val dishesDAO: DishesDAO) {
     suspend fun getDishByID(number: Long): DishesEntity? {
         return dishesDAO.getDishByID(number)
     }
-
-//    fun getDishesWithPrice(): List<dishesDatabase> {
-//        return dishesDAO.getDishesWithPrice()
-//    }
 }

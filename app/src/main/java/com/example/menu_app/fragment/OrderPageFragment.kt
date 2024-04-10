@@ -15,7 +15,9 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
@@ -23,6 +25,7 @@ import com.example.menu_app.adapter.OrderPageAdapter
 import com.example.menu_app.application.startup
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
+import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 class OrderPageFragment : Fragment() {
@@ -76,9 +79,6 @@ class OrderPageFragment : Fragment() {
                     return when (menuItem.itemId){
                         R.id.edit_basket -> {
                             viewModel.clearCart()
-                            if (orderData != null) {
-                                viewModel.setOrderData(orderData)
-                            }
                             val nav = OrderPageFragmentDirections.actionOrderPageFragmentToBasketFragment("daily")
                             findNavController().navigate(nav)
                             viewModel.setEditMode(true)

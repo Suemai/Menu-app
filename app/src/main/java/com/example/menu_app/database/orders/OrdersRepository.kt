@@ -17,4 +17,8 @@ class OrdersRepository (private val ordersDAO: OrdersDAO){
     suspend fun getAllOrders(): List<OrdersEntity>{
         return ordersDAO.getAllOrders()
     }
+
+    suspend fun getOrderByNumber(number: Int): OrdersEntity?{
+        return ordersDAO.getOrderByNumber(number)
+    }
 }

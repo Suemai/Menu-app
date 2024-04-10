@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.menu.R
@@ -17,6 +19,7 @@ import com.example.menu_app.application.startup
 import com.example.menu_app.classes.HeaderItemDecoration
 import com.example.menu_app.database.orders.OrdersRepository
 import com.example.menu_app.viewModel.mainViewModel
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
@@ -79,5 +82,22 @@ class OrderHistoryFragment : Fragment() {
             val toOrderPage = OrderHistoryFragmentDirections.actionOrderRecordFragmentToOrderPageFragment("history")
             findNavController().navigate(toOrderPage)
         }
+
+        // Swipe to delete - This is a temp solution for testing purposes only
+        // Final app won't have this feature
+        ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int){
+                val position = viewHolder.adapterPosition
+                lifecycleScope.launch {
+                    ordersRepo.deleteOrder(orderAdapter.getOrderAt(position))
+                    orderAdapter.notifyItemRemoved(position)
+                    //mainVM.updateCart()
+                }
+            }
+        }).attachToRecyclerView(orderRecyclerView)
     }
 }

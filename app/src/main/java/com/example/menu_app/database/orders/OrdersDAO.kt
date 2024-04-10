@@ -16,4 +16,6 @@ interface OrdersDAO {
     @Query("SELECT * FROM orders")
     suspend fun getAllOrders(): List<OrdersEntity>
 
+    @Query("SELECT * FROM orders WHERE number = :number")
+    suspend fun getOrderByNumber(number: Int): OrdersEntity?
 }

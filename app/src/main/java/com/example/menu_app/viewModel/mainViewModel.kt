@@ -32,6 +32,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
 
     val billName: LiveData<String> = MutableLiveData()
 
+    // For basket reload when there is an order that needs to be edited
+    private val _reloadComplete = MutableLiveData<Boolean>()
+    val reloadComplete: LiveData<Boolean> = _reloadComplete
+
     // For all edit modes
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
@@ -64,6 +68,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             (changesMade as MutableLiveData).value = false
             (databaseChanged as MutableLiveData).value = false
             (mainChanged as MutableLiveData).value = false
+            (reloadComplete as MutableLiveData).value = true
             //getOrders()
         }
     }
@@ -154,14 +159,18 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     }
 
     fun reloadCart(orders: OrdersEntity){
+        _reloadComplete.value = false
         viewModelScope.launch {
             val cart = orders.orders
             cart.orders.forEach {
                 cartRepo.insertCartItem(it)
+                Log.d("mainViewModel", "reloadCart: $it")
             }
             updateCart()
             setBillName(orders.orderName.toString())
+            _reloadComplete.value = true
         }
+        //setEditMode(false)
     }
 
     fun setBillName(name: String){
@@ -208,7 +217,7 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         return dishData
     }
 
-    private fun getOrderNumber(): Int {
+    fun getOrderNumber(): Int {
         return orderData.value!!.orderNumber
     }
 

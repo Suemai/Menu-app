@@ -79,6 +79,11 @@ class OrderPageFragment : Fragment() {
                     return when (menuItem.itemId){
                         R.id.edit_basket -> {
                             viewModel.clearCart()
+                            if (orderData != null) {
+                                viewModel.reloadCart(orderData)
+                            } else {
+                                Log.d("OrderPageFragment", "Order data is null")
+                            }
                             val nav = OrderPageFragmentDirections.actionOrderPageFragmentToBasketFragment("daily")
                             findNavController().navigate(nav)
                             viewModel.setEditMode(true)

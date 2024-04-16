@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -76,6 +77,7 @@ class BasketFragment : Fragment() {
 
         arguments?.let {
             sourceFragment = it.getString("source") ?: ""
+            Log.d("BasketFragment", "Source: $sourceFragment")
         }
     }
 
@@ -152,10 +154,30 @@ class BasketFragment : Fragment() {
         basketRecyclerView.layoutManager = layoutManager
         basketRecyclerView.adapter = basketAdapter
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
+//        lifecycleScope.launch {
+//            withContext(Dispatchers.IO) {
+//                val cartItems = cartRepo.getAllCartItems().toMutableList()
+//                basketAdapter.setCartItems(cartItems)
+//                Log.d("BasketFragment", "Cart items: $cartItems")
+//            }
+//        }
+
+        // In the event of loading data from a pre-existing order
+        if (sourceFragment == "daily"){
+            mainVM.reloadComplete.observe(viewLifecycleOwner) { isReloaded ->
+                if (isReloaded){
+                    lifecycleScope.launch {
+                        val cartItems = cartRepo.getAllCartItems().toMutableList()
+                        basketAdapter.setCartItems(cartItems)
+                        Log.d("BasketFragment", "Daily Cart items: $cartItems")
+                    }
+                }
+            }
+        } else {
+            lifecycleScope.launch {
                 val cartItems = cartRepo.getAllCartItems().toMutableList()
                 basketAdapter.setCartItems(cartItems)
+                Log.d("BasketFragment", "Daily Cart items: $cartItems")
             }
         }
 
@@ -266,10 +288,12 @@ class BasketFragment : Fragment() {
             lifecycleScope.launch{
                 val cartEntities = basketAdapter.getCart()
                 val cartList = CartList(cartEntities)
-                Log.d("BasketFragment", "CartList")
+                Log.d("BasketFragment", "CartEntities $cartEntities")
+                Log.d("BasketFragment", "CartList $cartList")
                 if (sourceFragment == "daily"){
                     val bill = billName.text.toString()
-                    mainVM.updateOrder(bill, cartList)
+                    mainVM.updateOrder(bill, CartList(cartEntities.toList()))
+//                    orderMadeDialog(mainVM.getOrderNumber())
 //                    mainVM.saveOrder(
 //                        mainVM.getOrderNumber(),
 //                        billName.text.toString(),
@@ -284,25 +308,31 @@ class BasketFragment : Fragment() {
                         LocalDate.now(),
                         LocalTime.now(),
                         cartList)
+//                    orderMadeDialog(orderNumber)
                 }
             }
-            orderMadeDialog(orderNumber)
+            if (sourceFragment == "daily"){
+                orderMadeDialog(mainVM.getOrderNumber())
+            } else {
+                orderMadeDialog(orderNumber)
+            }
             mainVM.clearCart()
             basketAdapter.clearCart()
 
         }
 
-        // If editing an already made order
-        if (mainVM.isEditModeEnabled.value == true && mainVM.getOrderData().value != null){
-            val orderData = mainVM.getOrderData().value
-            if (orderData != null){
-                val cartList = orderData.orders
-                val cartEntities = cartList.orders
-                mainVM.reloadCart(orderData)
-                basketAdapter.setCartItems(cartEntities.toMutableList())
-                mainVM.setEditMode(false)
+        // Handle the back button
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (sourceFragment == "daily"){
+                    findNavController().navigate(R.id.dailyTotalFragment)
+                    Log.d("BasketFragment", "Back to main")
+                } else {
+                    findNavController().popBackStack()
+                }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     override fun onPause() {
@@ -335,7 +365,8 @@ class BasketFragment : Fragment() {
                 // Placeholder for printing
                 // If it's from a pre-existing order
                 if(sourceFragment == "daily"){
-                    findNavController().popBackStack(R.id.dailyTotalFragment, false)
+                    // Goes directly to the dailyTotal Fragment
+                    findNavController().navigate(R.id.dailyTotalFragment)
                 } else {
                     // For now, it will redirect to main fragment
                     findNavController().popBackStack()

@@ -2,8 +2,10 @@ package com.example.menu_app.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.menu.R
 import com.example.menu_app.application.startup
+import com.example.menu_app.fragment.BasketFragment
 import com.example.menu_app.viewModel.mainViewModel
 import com.example.menu_app.viewModel.vmFactory
 import com.google.android.material.navigation.NavigationView

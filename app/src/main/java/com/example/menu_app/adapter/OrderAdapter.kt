@@ -95,7 +95,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>, private val showHeade
             header -> {
                 if(holder is HeaderViewHolder){
                     holder.bind(orderList[position + 1]!!.date)
-                    Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
+                    //Log.d("OrderAdapter", "Bind: It's a header. Date: ${orderList[position + 1]!!.date}")
                 }
                 else if (holder is EmptyViewHolder) {
                     Log.d("OrderAdapter", "Bind: It's an empty header aka no header")
@@ -104,7 +104,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>, private val showHeade
             item -> {
                 val orderHolder = holder as OrderViewHolder
                 orderHolder.bind(orderList[position]!!)
-                Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
+                //Log.d("OrderAdapter", "Bind2: It's an item. Order: ${orderList[position]}")
             }
         }
     }
@@ -127,7 +127,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>, private val showHeade
 
         init{
             itemView.setOnClickListener {
-                Log.d("OrderAdapter", "Order clicked")
+                //Log.d("OrderAdapter", "Order clicked")
                 onItemClickListener?.invoke(adapterPosition)
             }
         }
@@ -148,7 +148,7 @@ class OrderAdapter(private var orders: List<OrdersEntity>, private val showHeade
         }
     }
 
-    // An empty viewholder for the header for Daily Total Fragment
+    // An empty view holder for the header for Daily Total Fragment
     inner class EmptyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     // StickyHeaderInterface implementation

@@ -102,9 +102,7 @@
     <list default="true" id="44cd2fa3-92be-49e2-8ebd-deb71043648d" name="Changes" comment="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/activity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/adapter/OrderAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/BasketFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/fragment/OrderPageFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/menu_app/viewModel/mainViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -529,7 +527,7 @@
       <workItem from="1712604040206" duration="1484000" />
       <workItem from="1712605561189" duration="227000" />
       <workItem from="1712605797062" duration="21721000" />
-      <workItem from="1712860654403" duration="21701000" />
+      <workItem from="1712860654403" duration="28404000" />
     </task>
     <task id="LOCAL-00001" summary="- mapped the orders to the order page&#10;- populated the orders page with data&#10;&#10;Problem&#10;- header makes it so that the pressed order opens a different order page. So intended order + headers before it.">
       <option name="closed" value="true" />

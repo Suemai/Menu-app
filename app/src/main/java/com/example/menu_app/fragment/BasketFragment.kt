@@ -257,7 +257,6 @@ class BasketFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 lifecycleScope.launch {
                     basketAdapter.deleteItem(position)
-                    //mainVM.updateCart()
                 }
             }
         }).attachToRecyclerView(basketRecyclerView)
@@ -290,16 +289,10 @@ class BasketFragment : Fragment() {
                 val cartList = CartList(cartEntities)
                 Log.d("BasketFragment", "CartEntities $cartEntities")
                 Log.d("BasketFragment", "CartList $cartList")
-                if (sourceFragment == "daily"){
+                //Log.d("BasketFragment", "Order empty: " + mainVM.isOrderEmpty())
+                if (sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
                     val bill = billName.text.toString()
                     mainVM.updateOrder(bill, CartList(cartEntities.toList()))
-//                    orderMadeDialog(mainVM.getOrderNumber())
-//                    mainVM.saveOrder(
-//                        mainVM.getOrderNumber(),
-//                        billName.text.toString(),
-//                        mainVM.getDate(),
-//                        mainVM.getTime(),
-//                        cartList)
 
                 } else {
                     mainVM.saveOrder(
@@ -308,10 +301,9 @@ class BasketFragment : Fragment() {
                         LocalDate.now(),
                         LocalTime.now(),
                         cartList)
-//                    orderMadeDialog(orderNumber)
                 }
             }
-            if (sourceFragment == "daily"){
+            if (sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
                 orderMadeDialog(mainVM.getOrderNumber())
             } else {
                 orderMadeDialog(orderNumber)
@@ -320,19 +312,6 @@ class BasketFragment : Fragment() {
             basketAdapter.clearCart()
 
         }
-
-        // Handle the back button
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (sourceFragment == "daily"){
-                    findNavController().navigate(R.id.dailyTotalFragment)
-                    Log.d("BasketFragment", "Back to main")
-                } else {
-                    findNavController().popBackStack()
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     override fun onPause() {
@@ -364,7 +343,7 @@ class BasketFragment : Fragment() {
             .setPositiveButton("Print"){ _, _ ->
                 // Placeholder for printing
                 // If it's from a pre-existing order
-                if(sourceFragment == "daily"){
+                if(sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
                     // Goes directly to the dailyTotal Fragment
                     findNavController().navigate(R.id.dailyTotalFragment)
                 } else {

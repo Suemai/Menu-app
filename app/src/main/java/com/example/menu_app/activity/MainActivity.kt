@@ -84,6 +84,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onSupportNavigateUp(): Boolean {
         navController = navHostFragment.navController
+
+        val currentFragment = navController.currentDestination?.id
+        if (currentFragment == R.id.basketFragment){
+            navController.navigate(R.id.mainFragment)
+            return true
+        }
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

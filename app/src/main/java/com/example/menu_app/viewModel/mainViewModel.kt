@@ -221,6 +221,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         return orderData.value!!.orderNumber
     }
 
+    fun isOrderEmpty(): Boolean {
+        return orderData.value?.toString().isNullOrEmpty()
+    }
+
     suspend fun saveChanges(
         dishIdNo: Long,
         dishNumber: String,

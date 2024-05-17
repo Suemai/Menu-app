@@ -86,6 +86,7 @@ class OrderPageFragment : Fragment() {
                             }
                             val nav = OrderPageFragmentDirections.actionOrderPageFragmentToBasketFragment("daily")
                             findNavController().navigate(nav)
+                            viewModel.setOrderState(false) // Basket know your editing an order
                             viewModel.setEditMode(true)
                             Log.d("OrderPageFragment", "Edit mode enabled")
                             true

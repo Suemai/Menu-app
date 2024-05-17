@@ -38,7 +38,7 @@ class OrderPageAdapter(private val cartList: List<CartEntity>): RecyclerView.Ada
             // Bind the data to the view
             dishQuantity.text = orderItem.quantity.toString()
             dishName.text = orderItem.name
-            dishPrice.text = String.format("£%.2f", orderItem.price)
+            dishPrice.text = String.format("£%.2f", orderItem.price*orderItem.quantity)
             dishNote.text = orderItem.notes
 
             if (orderItem.notes.isNullOrEmpty()){

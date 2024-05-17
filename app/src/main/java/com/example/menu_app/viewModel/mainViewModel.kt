@@ -40,6 +40,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
     private val _isEditModeEnabled = MutableLiveData<Boolean>()
     val isEditModeEnabled: LiveData<Boolean> = _isEditModeEnabled
 
+    // For basket to know when editing order or creating new order
+    // Default true for new order
+    var isNewOrder: Boolean = true
+
     // For when the main database has been changed
     private val _changesMade = MutableLiveData<Boolean>()
     val changesMade: LiveData<Boolean> = _changesMade
@@ -64,11 +68,11 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
         viewModelScope.launch {
             cartRepo.clearCart()
             (isCartEmpty as MutableLiveData).value = true
-            (isEditModeEnabled as MutableLiveData).value = false
-            (changesMade as MutableLiveData).value = false
-            (databaseChanged as MutableLiveData).value = false
-            (mainChanged as MutableLiveData).value = false
-            (reloadComplete as MutableLiveData).value = true
+            _isEditModeEnabled.value = false
+            _changesMade.value = false
+            _databaseChanged.value = false
+            _mainChanged.value = false
+            _reloadComplete.value = true
             //getOrders()
         }
     }
@@ -301,6 +305,10 @@ class mainViewModel (private val cartRepo: CartRepository, private val dishRepo:
             Log.d("mainViewModel", "existing order: $existingOrder")
             _ordersFragChanged.value = true
         }
+    }
+
+    fun setOrderState (isNewOrder: Boolean){
+        this.isNewOrder = isNewOrder
     }
 
     // For order page

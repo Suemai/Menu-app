@@ -163,7 +163,7 @@ class BasketFragment : Fragment() {
 //        }
 
         // In the event of loading data from a pre-existing order
-        if (sourceFragment == "daily"){
+        if (!mainVM.isNewOrder){
             mainVM.reloadComplete.observe(viewLifecycleOwner) { isReloaded ->
                 if (isReloaded){
                     lifecycleScope.launch {
@@ -177,7 +177,7 @@ class BasketFragment : Fragment() {
             lifecycleScope.launch {
                 val cartItems = cartRepo.getAllCartItems().toMutableList()
                 basketAdapter.setCartItems(cartItems)
-                Log.d("BasketFragment", "Daily Cart items: $cartItems")
+                Log.d("BasketFragment", "Not Daily Cart items: $cartItems")
             }
         }
 
@@ -290,7 +290,7 @@ class BasketFragment : Fragment() {
                 Log.d("BasketFragment", "CartEntities $cartEntities")
                 Log.d("BasketFragment", "CartList $cartList")
                 //Log.d("BasketFragment", "Order empty: " + mainVM.isOrderEmpty())
-                if (sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
+                if (!mainVM.isNewOrder){
                     val bill = billName.text.toString()
                     mainVM.updateOrder(bill, CartList(cartEntities.toList()))
 
@@ -303,14 +303,13 @@ class BasketFragment : Fragment() {
                         cartList)
                 }
             }
-            if (sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
+            if (!mainVM.isNewOrder){
                 orderMadeDialog(mainVM.getOrderNumber())
             } else {
                 orderMadeDialog(orderNumber)
             }
             mainVM.clearCart()
             basketAdapter.clearCart()
-
         }
     }
 
@@ -343,7 +342,7 @@ class BasketFragment : Fragment() {
             .setPositiveButton("Print"){ _, _ ->
                 // Placeholder for printing
                 // If it's from a pre-existing order
-                if(sourceFragment == "daily"|| !mainVM.isOrderEmpty()){
+                if(!mainVM.isNewOrder){
                     // Goes directly to the dailyTotal Fragment
                     findNavController().navigate(R.id.dailyTotalFragment)
                 } else {
@@ -355,6 +354,7 @@ class BasketFragment : Fragment() {
                 dialog.dismiss()
             }
             .create()
+        mainVM.setOrderState(true)
         dialog.show()
     }
 }

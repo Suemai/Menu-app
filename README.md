@@ -4,7 +4,7 @@ It is what it is, a menu app that will be able to can print receipts.
 A personal project that is catered initially towards traditional family-owned takeaways.
 Basically a very small-scale PoS system.
 
-## Features
+## Features (not all implemented yet)
 
 - Search through menu items and add onto basket
 - Edit and change database
@@ -15,7 +15,7 @@ Basically a very small-scale PoS system.
 - Send receipts through bluetooth to receipt printers 
 
 
-## Planned features
+## Future planned features
 
 - Import and export databases
 
